@@ -21,7 +21,9 @@
 
 // TODO: write the prototype for the main function
 //         to accept command line arguments
-
+extern double g_taxrate;
+extern double g_dailydiscount;
+int main (int argc, char* argv[])
 {
 	std::cout << "Command Line:\n";
 	std::cout << "--------------------------\n";
@@ -30,8 +32,9 @@
 	//   2: second argument
 	//   3: third argument
 	//   ...
-
-
+	for (int i = 0; i < argc; i++) {
+		std::cout << "  " << i+1 << ": " << argv[i] << std::endl;
+	}
 	std::cout << "--------------------------\n\n";
 
 	// Keep a record of the In House and Delivery orders separately
