@@ -25,6 +25,7 @@ namespace sdds {
          }
          else { m_dailyspecial = false; }
       }
+      else { m_customer[0] = '\0'; }
       return istr;
    }
    std::ostream& FoodOrder::display() const
