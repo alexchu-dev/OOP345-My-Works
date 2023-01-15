@@ -13,20 +13,21 @@ namespace sdds {
    };
    std::istream& FoodOrder::read(std::istream& istr)
    {
-      if(istr) {
+      if(!istr.fail()) {
          istr.get(m_customer, 10, ',');
          istr.ignore();
          istr.get(m_food, 25, ',');
          istr.ignore();
          istr >> m_price;
          istr.ignore();
-         char flag;
+         char flag = '\0';
          istr.get(flag);
          if (flag == 'Y') {
             m_dailyspecial = true;
          }
          else { m_dailyspecial = false; }
       }
+      else { m_customer[0] = '\0'; }
       return istr;
    }
    std::ostream& FoodOrder::display() const
