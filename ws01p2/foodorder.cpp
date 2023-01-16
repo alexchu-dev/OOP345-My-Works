@@ -40,6 +40,8 @@ namespace sdds {
    std::ostream& FoodOrder::display() const
    {
       static int counter = 1;
+      double taxPrice = m_price * g_taxrate + m_price;
+      double specialPrice = taxPrice - g_dailydiscount;
       cout.setf(std::ios::left);
       cout.width(2);
       cout << counter++ << ". ";
@@ -49,12 +51,12 @@ namespace sdds {
          cout.width(25);
          cout << m_food << "|";
          cout.width(12);
-         cout << fixed << setprecision(2) << m_price + m_price*g_taxrate << "|";
+         cout << fixed << setprecision(2) << taxPrice << "|";
          cout.unsetf(std::ios::left);
          cout.setf(std::ios::right);
          cout.width(13);
          if (m_dailyspecial) {
-            cout << fixed << setprecision(2) << (m_price + m_price * g_taxrate) - g_dailydiscount;
+            cout << fixed << setprecision(2) << specialPrice;
          }
          cout.unsetf(std::ios::right);
          cout << endl;
