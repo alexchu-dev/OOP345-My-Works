@@ -27,7 +27,7 @@ namespace sdds {
          getline(istr, m_food, ',');
          istr >> m_price;
          istr.ignore();
-         char flag;
+         char flag = '\0';
          istr.get(flag);
          if (flag == 'Y') {
             m_dailyspecial = true;
