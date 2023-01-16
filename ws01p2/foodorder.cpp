@@ -27,9 +27,9 @@ namespace sdds {
          getline(istr, m_food, ',');
          istr >> m_price;
          istr.ignore();
-         std::string flag;
-         getline(istr,flag);
-         if (flag == "Y") {
+         char flag;
+         istr.get(flag);
+         if (flag == 'Y') {
             m_dailyspecial = true;
          }
          else { m_dailyspecial = false; }
