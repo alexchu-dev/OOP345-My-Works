@@ -11,14 +11,20 @@
 #define SDDS_FOODORDER_H_
 #include <iostream>
 #include <string>
+#include <cstring>
 namespace sdds {
    class FoodOrder {
-      std::string m_customer;
-      std::string m_food;
-      double m_price = 0;
+      char m_customer[10]{};
+      char* m_food{};
+      double m_price{ 0 };
       bool m_dailyspecial = false;
+   protected:
+      void setEmpty();
    public:
-      FoodOrder();
+      FoodOrder() {};
+      ~FoodOrder();
+      FoodOrder(const FoodOrder&);
+      FoodOrder& operator=(const FoodOrder&);
       std::istream& read(std::istream& istr);
       std::ostream& display() const;
    };

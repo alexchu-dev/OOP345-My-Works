@@ -7,6 +7,7 @@
 //I have done all the coding by myself and only copied the code
 //that my professor provided to complete my workshops and assdignments.
 ******************************************************************************/
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <iomanip>
 #include "foodorder.h"
@@ -14,17 +15,57 @@ double g_taxrate;
 double g_dailydiscount;
 using namespace std;
 namespace sdds {
-   FoodOrder::FoodOrder() {
+   void FoodOrder::setEmpty()
+   {
       m_customer[0] = '\0';
-      m_food[0] = '\0';
+      m_food = {};
       m_price = 0;
       m_dailyspecial = false;
-   };
+   }
+   FoodOrder::~FoodOrder()
+   {
+      if (m_food != nullptr) {
+         delete[] m_food;
+         m_food = nullptr;
+      }
+   }
+   FoodOrder::FoodOrder(const FoodOrder& src)
+   {
+      *this = src;
+   }
+
+   FoodOrder& FoodOrder::operator=(const FoodOrder& src)
+   {
+      if (this != &src) {
+         if (src.m_customer != nullptr)
+         {
+            strcpy(m_customer, src.m_customer);
+         }
+         delete[] m_food;
+         if (src.m_food != nullptr)
+         {
+            m_food = new char[strlen(src.m_food) + 1];
+            strcpy(m_food, src.m_food);
+         }
+         else {
+            m_food = nullptr;
+         }
+         m_price = src.m_price;
+         m_dailyspecial = src.m_dailyspecial;
+      }
+      return *this;
+   }
+
    std::istream& FoodOrder::read(std::istream& istr)
    {
-      if(istr) {
-         getline(istr, m_customer, ',');
-         getline(istr, m_food, ',');
+      if (istr) {
+         istr.getline(m_customer, 10, ',');
+
+         //WS2 - Using a string to receive as temp, then using DMA to copy to a Cstring
+         string temp;
+         getline(istr, temp, ',');
+         m_food = new char[temp.length() + 1];
+         strcpy(m_food, temp.c_str());
          istr >> m_price;
          istr.ignore();
          char flag = '\0';
@@ -34,7 +75,7 @@ namespace sdds {
          }
          else { m_dailyspecial = false; }
       }
-      else { m_customer[0] = '\0'; }
+      else { setEmpty(); }
       return istr;
    }
    std::ostream& FoodOrder::display() const
@@ -45,7 +86,7 @@ namespace sdds {
       cout.setf(std::ios::left);
       cout.width(2);
       cout << counter++ << ". ";
-      if (m_customer.length()!=0) {
+      if (m_customer[0]!='\0') {
          cout.width(10);
          cout << m_customer << "|";
          cout.width(25);
@@ -53,12 +94,12 @@ namespace sdds {
          cout.width(12);
          cout << fixed << setprecision(2) << taxPrice << "|";
          cout.unsetf(std::ios::left);
-         cout.setf(std::ios::right);
-         cout.width(13);
          if (m_dailyspecial) {
+            cout.setf(std::ios::right);
+            cout.width(13);
             cout << fixed << setprecision(2) << specialPrice;
+            cout.unsetf(std::ios::right);
          }
-         cout.unsetf(std::ios::right);
          cout << endl;
       }
       else {
@@ -66,4 +107,5 @@ namespace sdds {
       }
       return cout;
    }
+   
 }
