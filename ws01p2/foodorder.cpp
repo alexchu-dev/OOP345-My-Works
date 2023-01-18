@@ -24,10 +24,8 @@ namespace sdds {
    }
    FoodOrder::~FoodOrder()
    {
-      if (m_food != nullptr) {
          delete[] m_food;
          m_food = nullptr;
-      }
    }
    FoodOrder::FoodOrder(const FoodOrder& src)
    {
