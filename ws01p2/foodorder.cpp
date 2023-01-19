@@ -19,7 +19,6 @@ namespace sdds {
    {
       *this = src;
    }
-
    FoodOrder& FoodOrder::operator=(const FoodOrder& src)
    {
       if (this != &src) {
@@ -31,7 +30,7 @@ namespace sdds {
             strcpy(m_food, src.m_food);
             m_price = src.m_price;
             m_dailyspecial = src.m_dailyspecial;
-         }
+         } 
          else {
             setEmpty();
          }
@@ -40,7 +39,7 @@ namespace sdds {
    }
    FoodOrder::~FoodOrder()
    {
-      deallocate();
+      //deallocate();
    }
    void FoodOrder::setEmpty()
    {
