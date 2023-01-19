@@ -18,13 +18,13 @@ namespace sdds {
       char* m_food{};
       double m_price{ 0 };
       bool m_dailyspecial = false;
-   protected:
       void setEmpty();
+      void deallocate();
    public:
       FoodOrder() {};
-      ~FoodOrder();
       FoodOrder(const FoodOrder&);
       FoodOrder& operator=(const FoodOrder&);
+      ~FoodOrder();
       std::istream& read(std::istream& istr);
       std::ostream& display() const;
    };

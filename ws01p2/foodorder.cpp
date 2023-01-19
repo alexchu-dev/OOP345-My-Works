@@ -15,18 +15,6 @@ double g_taxrate;
 double g_dailydiscount;
 using namespace std;
 namespace sdds {
-   void FoodOrder::setEmpty()
-   {
-      m_customer[0] = '\0';
-      m_food = nullptr;
-      m_price = 0;
-      m_dailyspecial = false;
-   }
-   FoodOrder::~FoodOrder()
-   {
-         delete[] m_food;
-         m_food = nullptr;
-   }
    FoodOrder::FoodOrder(const FoodOrder& src)
    {
       *this = src;
@@ -35,7 +23,7 @@ namespace sdds {
    FoodOrder& FoodOrder::operator=(const FoodOrder& src)
    {
       if (this != &src) {
-         setEmpty();
+         deallocate();
          if (src.m_customer != nullptr && src.m_food != nullptr)
          {
             strcpy(m_customer, src.m_customer);
@@ -50,7 +38,22 @@ namespace sdds {
       }
       return *this;
    }
-
+   FoodOrder::~FoodOrder()
+   {
+      deallocate();
+   }
+   void FoodOrder::setEmpty()
+   {
+      m_customer[0] = '\0';
+      m_food = nullptr;
+      m_price = 0;
+      m_dailyspecial = false;
+   }
+   void FoodOrder::deallocate()
+   {
+      delete[] m_food;
+      m_food = nullptr;
+   }
    std::istream& FoodOrder::read(std::istream& istr)
    {
       if (istr) {
