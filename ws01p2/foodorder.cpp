@@ -18,7 +18,7 @@ namespace sdds {
    void FoodOrder::setEmpty()
    {
       m_customer[0] = '\0';
-      m_food = {};
+      m_food = nullptr;
       m_price = 0;
       m_dailyspecial = false;
    }
@@ -35,21 +35,18 @@ namespace sdds {
    FoodOrder& FoodOrder::operator=(const FoodOrder& src)
    {
       if (this != &src) {
-         if (src.m_customer != nullptr)
+         setEmpty();
+         if (src.m_customer != nullptr && src.m_food != nullptr)
          {
             strcpy(m_customer, src.m_customer);
-         }
-         delete[] m_food;
-         if (src.m_food != nullptr)
-         {
             m_food = new char[strlen(src.m_food) + 1];
             strcpy(m_food, src.m_food);
+            m_price = src.m_price;
+            m_dailyspecial = src.m_dailyspecial;
          }
          else {
-            m_food = nullptr;
+            setEmpty();
          }
-         m_price = src.m_price;
-         m_dailyspecial = src.m_dailyspecial;
       }
       return *this;
    }
