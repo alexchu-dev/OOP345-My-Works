@@ -7,33 +7,29 @@
 //I have done all the coding by myself and only copied the code
 //that my professor provided to complete my workshops and assdignments.
 ******************************************************************************/
-
 In this workshop 1, the core w1_p1.cpp/ w1_p2.cpp was provided and what I needed to do was creating a foodorder module.
 
-The two global variables named g_taxrate and g_dailydiscount were declared in the foodorder.cpp, and as an "External Linkage" to the main cpp file.
+Difference between internal and external linkage:
+The two global variables were declared in the foodorder.cpp and as an "External Linkage" to the main cpp file.
+External Linkage is connected across different scopes in differnt modules - In w1_p2.cpp, the variables were declared as "extern double g_taxrate; extern double g_dailydiscount;", then it was declared in foodorder.cpp without the "extern" keyword. What it does is to share the same entity across two modules.
+Internal Linkage is connected accoss different scopes in the same module - In foodorder.cpp "static int counter = 1;" was declared and being used as a counter from the beginning until the end of the runtime.
 
-The way to link externally was adding "extern" in front of the type and identifer.
+Static variables
+Static keywords identifies internal linkage. Meanwhile, it also means it has an entire life time duration which ends with the program.
+As requested by the workshop instruction, there was a COUNTER which has to hold number of times the function has been called and remains until the end.
+I defined it as "static int counter = 1", the value keeps going while the program is still running, then when the scope is back the function again, counter++ adds up the value and stacks up.
+It was helpful as it did not go out of scope and I did not need to create a global variable instead for this purpose.
 
-Next, it was to rewrite the int main() to int main (int argc, char* argv[]) which was taught in lecture.
+Changes to upgrade part 2
+The first attempt I have submitted was changing the cstring of food description to a string, used c_str and length() in the code but then realise I was supposed to make it a dynamic cstring instead.
+So I rewrote my code again, changing the cstring to a dynamic one, used a temporary string variable to receive the input from istream, then by using length() to get its length and assign a new dynamic cstring with it.
+temp.c_str was used to strcpy the content from the string to the object member m_food.
+Rules of 3 was added, created copy constructor and assignment operator for the usage of "copy" in w1_p2.cpp.
+Deallocate and setEmpty private functions were added to hold the delete and safe empty states assignments to the member variables.
+Read function was changed, dynamic allocation added and also set deallocation.
 
+
+The int main() was rewritten to int main (int argc, char* argv[]) which was taught in lecture.
 Together with the for loop for (int i = 0; i < argc; i++), it output the argv array one by one.
-
 The argv would display the arguments we inserted (from the Properties of the Project in VS, or during command line in MS with executable or Linux g++).
 
-Next, I started with foodorder header to declare class and the prototypes. iostream, iomanip and string lib were included in w1p1 and w1p2.
-
-FoodOrder.cpp was straight forward. It took me a while to consider which part I should put the g_taxrate and g_dailydiscount declaration, to avoid errors I put them right under all the #include.
-
-FoodOrder class was initiated with blank values, they were then being assigned with values from istream through the read() function.
-
-ws1p1 used istr.get since it was using c-strings, ws1p2 used getline as a string type.
-
-After receiving the values, I used display() to output the data.
-
-As requested by the workshop instruction, there was a COUNTER which has to hold number of times the function has been called, and it "has to REMAIN in the memory for the lifetime of the program".
-
-Therefore, it means the internal linkage - static duration we were taught in class.
-
-I defined it as "static int counter = 1". Then it was being counter++ while it is being called using cout and stacking up for the next call.
-
-Everything else with the ostream format such as setprecision and width were reviews of OOP244.
