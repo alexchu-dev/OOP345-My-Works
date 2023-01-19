@@ -30,7 +30,7 @@ namespace sdds {
             strcpy(m_food, src.m_food);
             m_price = src.m_price;
             m_dailyspecial = src.m_dailyspecial;
-         } 
+         }
          else {
             setEmpty();
          }
@@ -39,7 +39,7 @@ namespace sdds {
    }
    FoodOrder::~FoodOrder()
    {
-      //deallocate();
+      deallocate();
    }
    void FoodOrder::setEmpty()
    {
@@ -61,6 +61,7 @@ namespace sdds {
          //WS2 - Using a string to receive as temp, then using DMA to copy to a Cstring
          string temp;
          getline(istr, temp, ',');
+         if (m_food!=nullptr) deallocate();
          m_food = new char[temp.length() + 1];
          strcpy(m_food, temp.c_str());
          istr >> m_price;
