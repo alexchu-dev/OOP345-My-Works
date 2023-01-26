@@ -1,0 +1,29 @@
+/******************************************************************************
+//                    OOP345NDD - WS02 @ 26 Jan 2023
+//Full Name  : Alex Chu
+//Student ID#: 153954219
+//Email      : kchu30@myseneca.ca
+//
+//I have done all the coding by myself and only copied the code
+//that my professor provided to complete my workshops and assdignments.
+******************************************************************************/
+In this workshop 2, there are a lot of new stuff I have learnt apart from the week 2 lecture.
+
+Move Constructors
+First of all, the main topic is move constructors/assignment op. The concept is new but make a lot of sense. Sometimes we simply do not need to copy a object to make it redundunt and waste of memory, instead we can just move it when we have to.
+
+The complete idea of move constructor/assignment op is mostly identical to copy constuctor/assignment op.
+In the signature of the move constructor we use double & like ProteinDatabase(ProteinDatabase&& src)noexcept. noexcept is a good practice for programmer to allow a compile-time check if an expression is declared to not throw an exception. In side the declaration, it applies a std:move() to the src:
+*this = std::move(src);
+
+In the move assignment op, we do not have to assign a new dynamic memory anymore. We only need to delete the attributes in *this, then we assign the value to the attributes of *this from the source src. The most important part is to set the source attributes to 0 and nullptr.
+
+-"the reason for the significant time difference between the copy and move operations"
+And because of the MOVING the whole thing is just copying the address of the source, it does not actually copying the object itself. A metaphos is that, when you cut and paste a file in your computer on a same drive, it is so fast because it actually only changes the address which is pointing to it, rather than doing the whole thing as copying every item which is already exist on your drive again. It is the same as MOVE constructor, compares to COPY constructor. When we use copy constructor we actually create an extra copy of the object, hence we need to assign memory and copy one by one. For move constructor, we just change the address of pointer from one to another which eliminate the needs of actual copying and save time.
+
+Others stuff I have learnt:
+The Chrono library and functions including time_point, duration, system_clock, steady_clock, .count() and the casting of specific time.
+
+The size_t, sizeof() that we haven't learnt in 244.
+
+Usage of seekg() which was not include in students' part in 244 workshops.
