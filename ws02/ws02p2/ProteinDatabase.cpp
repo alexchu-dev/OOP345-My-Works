@@ -54,7 +54,7 @@ namespace sdds {
          m_arr = nullptr;
          m_noOfStrings = src.m_noOfStrings;
          m_arr = new string[src.m_noOfStrings];
-         for (int i = 0; i < m_noOfStrings; i++) {
+         for (size_t i = 0; i < m_noOfStrings; i++) {
             m_arr[i] = src.m_arr[i];
          }
       }
