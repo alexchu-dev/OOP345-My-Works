@@ -61,7 +61,7 @@ namespace sdds {
          //WS2 - Using a string to receive as temp, then using DMA to copy to a Cstring
          string temp;
          getline(istr, temp, ',');
-         if (m_food!=nullptr) deallocate();
+         if (m_food != nullptr) deallocate();
          m_food = new char[temp.length() + 1];
          strcpy(m_food, temp.c_str());
          istr >> m_price;
@@ -84,7 +84,7 @@ namespace sdds {
       cout.setf(std::ios::left);
       cout.width(2);
       cout << counter++ << ". ";
-      if (m_customer[0]!='\0') {
+      if (m_customer[0] != '\0') {
          cout.width(10);
          cout << m_customer << "|";
          cout.width(25);
@@ -105,5 +105,5 @@ namespace sdds {
       }
       return cout;
    }
-   
+
 }

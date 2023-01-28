@@ -12,6 +12,8 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+extern double g_taxrate;
+extern double g_dailydiscount;
 namespace sdds {
    class FoodOrder {
       char m_customer[10]{};

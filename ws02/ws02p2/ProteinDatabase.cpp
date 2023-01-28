@@ -51,7 +51,6 @@ namespace sdds {
    {
       if (this != &src) {
          delete[] m_arr;
-         m_arr = nullptr;
          m_noOfStrings = src.m_noOfStrings;
          m_arr = new string[src.m_noOfStrings];
          for (size_t i = 0; i < m_noOfStrings; i++) {
@@ -70,7 +69,6 @@ namespace sdds {
    {
       if (this != &src) {
          delete[] m_arr;
-         m_arr = nullptr;
          m_noOfStrings = src.m_noOfStrings;
          m_arr = src.m_arr;
          src.m_noOfStrings = 0;
