@@ -11,7 +11,6 @@
 #define SDDS_PAIR_H
 #include <iostream>
 #include <string>
-#include "Collection.h"
 namespace sdds {
    class Pair
    {
@@ -19,15 +18,14 @@ namespace sdds {
       std::string m_value{};
    public:
       Pair() {};
-      const std::string& getKey() { return m_key; }
-      const std::string& getValue() { return m_value; }
+      const std::string& getKey() const{ return m_key; }
+      const std::string& getValue() const{ return m_value; }
       Pair(const std::string& key, const std::string& value) : m_key{ key }, m_value{ value } {};
 
       // TODO: Add here the missing prototypes for the members
       //           that are necessary if this class is to be used
       //           with the template classes described below.
       //       Implement them in the Pair.cpp file.
-      std::ostream& display(std::ostream& os) const;
    };
    std::ostream& operator<<(std::ostream& os, const Pair&);
 }
