@@ -19,6 +19,8 @@ namespace sdds {
       static int m_size; //or just int? check with prof.
       T dummy{};
    public:
+      Collection() {};
+      ~Collection() {};
       static int size();
       std::ostream& display(std::ostream& os = std::cout)const;
       bool add(const T& item);
