@@ -18,13 +18,15 @@ namespace sdds {
    template<typename T>
    class Set : public Collection<T, 100> {
       //T tempArray[100]{};
-      unsigned int tempSize{};
+      /*unsigned int tempSize{};*/
    public:
       bool operator==(const Collection<T, 100>& RO) {
          return this->operator[] = RO.operator[];
       };
-      bool add(const T& item) {
+      bool add(T& item) {
          bool flag{ false };
+         unsigned int tempSize{};
+         tempSize = this->size();
          //tempArray[tempSize] = item;
          //std::cout << "Debug: " << tempArray[tempSize];
 
