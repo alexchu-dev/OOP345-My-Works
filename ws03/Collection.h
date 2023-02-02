@@ -21,9 +21,9 @@ namespace sdds {
       static T dummy; //this one is static
    public:
       Collection() {};
-      ~Collection() {};
+      virtual ~Collection() {};
       unsigned int size();
-      std::ostream& display(std::ostream& os = std::cout)const {
+      std::ostream& display(std::ostream& os = std::cout) const {
          os << "----------------------\n| Collection Content |\n----------------------" << std::endl;
          for (unsigned int i = 0; i < m_size; i++) {
             os << m_collection[i] << std::endl;
@@ -31,7 +31,7 @@ namespace sdds {
          os << "----------------------" << std::endl;
          return os;
       };
-      bool add(const T& item) {
+      virtual bool add(const T& item) {
          bool itemAdded{ false };
          if (m_size < CAPACITY) {
             m_collection[m_size] = item;

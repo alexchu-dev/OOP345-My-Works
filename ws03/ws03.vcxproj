@@ -135,7 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pair.cpp" />
-    <ClCompile Include="w3_p1.cpp" />
+    <ClCompile Include="w3_p2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collection.h" />
