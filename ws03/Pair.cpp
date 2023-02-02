@@ -17,6 +17,6 @@ std::ostream& sdds::operator<<(std::ostream& os, const Pair& src)
 {
    os.setf(std::ios::right);
    os.width(20);
-   os << src.getKey();
+   os << src.getKey() << ": " << src.getValue();
    return os;
 }

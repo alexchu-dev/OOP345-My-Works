@@ -24,7 +24,7 @@ namespace sdds {
       ~Collection() {};
       int size();
       std::ostream& display(std::ostream& os = std::cout)const {
-         os << "----------------------\n| Collection Content |\n----------------------\n" << std::endl;
+         os << "----------------------\n| Collection Content |\n----------------------" << std::endl;
          for (int i = 0; i < m_size; i++) {
             os << m_collection[i] << std::endl;
          }
@@ -41,13 +41,13 @@ namespace sdds {
          return itemAdded;
       };
       T operator[](unsigned i)const {
-         return i < CAPACITY ? m_collection[i] : dummy;
+         return i < m_size ? m_collection[i] : dummy;
       };
-      
+
    };
    template <typename T, unsigned int CAPACITY>
    T Collection<T, CAPACITY>::dummy{};
-   
+
    template<>
    Pair Collection<Pair, 100>::dummy{ "No Key", "No Val" };
 
