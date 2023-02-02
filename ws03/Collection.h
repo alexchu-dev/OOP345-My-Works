@@ -17,15 +17,15 @@ namespace sdds {
    class Collection
    {
       T m_collection[CAPACITY];
-      int m_size{}; //or just int? check with prof.
+      unsigned int m_size{}; //or just int? check with prof.
       static T dummy; //this one is static
    public:
       Collection() {};
       ~Collection() {};
-      int size();
+      unsigned int size();
       std::ostream& display(std::ostream& os = std::cout)const {
          os << "----------------------\n| Collection Content |\n----------------------" << std::endl;
-         for (int i = 0; i < m_size; i++) {
+         for (unsigned int i = 0; i < m_size; i++) {
             os << m_collection[i] << std::endl;
          }
          os << "----------------------" << std::endl;
@@ -40,7 +40,7 @@ namespace sdds {
          }
          return itemAdded;
       };
-      T operator[](int i)const {
+      T operator[](unsigned int i)const {
          return i < m_size ? m_collection[i] : dummy;
       };
 
@@ -52,7 +52,7 @@ namespace sdds {
    Pair Collection<Pair, 100>::dummy{ "No Key", "No Val" };
 
    template<typename T, unsigned int CAPACITY>
-   int Collection<T, CAPACITY>::size()
+   unsigned int Collection<T, CAPACITY>::size()
    {
       return m_size;
    }
