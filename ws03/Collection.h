@@ -17,7 +17,7 @@ namespace sdds {
    class Collection
    {
       T m_collection[CAPACITY];
-      unsigned int m_size{}; //or just int? check with prof.
+      int m_size{}; //or just int? check with prof.
       static T dummy; //this one is static
    public:
       Collection() {};
@@ -40,7 +40,7 @@ namespace sdds {
          }
          return itemAdded;
       };
-      T operator[](unsigned i)const {
+      T operator[](int i)const {
          return i < m_size ? m_collection[i] : dummy;
       };
 
