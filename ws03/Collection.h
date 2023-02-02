@@ -17,7 +17,7 @@ namespace sdds {
    class Collection
    {
       T m_collection[CAPACITY];
-      int m_size{}; //or just int? check with prof.
+      unsigned int m_size{}; //or just int? check with prof.
       static T dummy; //this one is static
    public:
       Collection() {};
