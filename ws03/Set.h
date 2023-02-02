@@ -17,17 +17,33 @@
 namespace sdds {
    template<typename T>
    class Set : public Collection<T, 100> {
+      //T tempArray[100]{};
+      unsigned int tempSize{};
    public:
+      bool operator==(const Collection<T, 100>& RO) {
+         return this->operator[] = RO.operator[];
+      };
       bool add(const T& item) {
          bool flag{ false };
-         for (unsigned int i = 0; i < this->size(); i++) {
-            std::cout << this[i];
-         }
+         //tempArray[tempSize] = item;
+         //std::cout << "Debug: " << tempArray[tempSize];
 
-         this->Collection<T, 100>::add(item);
-         bool itemAdded{ false };
+         for (unsigned int i = 0; i < tempSize; i++)
+         {
+            //if (tempArray[i] == item) {
+            if (item == Collection<T, 100>::operator[](i)) {
+               std::cout << "DUPLICATED!" << std::endl;
+            }
+            else
+            {
+               this->Collection<T, 100>::add(item);
+               flag = true;
+            }
+         }
+         tempSize++;
          return flag;
       };
+
    };
 }
 #endif
