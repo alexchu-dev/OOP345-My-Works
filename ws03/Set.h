@@ -13,13 +13,14 @@
 #include <iostream>
 #include <string>
 #include "Collection.h"
+#include "Pair.h"
 namespace sdds {
-   template<typename T, unsigned int CAPACITY>
+   template<typename T>
    class Set : public Collection<T, 100> {
    public:
       bool add(const T& item) {
          bool flag{ false };
-         for (int i = 0; i < this->size(); i++) {
+         for (unsigned int i = 0; i < this->size(); i++) {
             std::cout << this[i];
          }
 
