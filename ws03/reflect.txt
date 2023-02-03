@@ -1,0 +1,41 @@
+/******************************************************************************
+//                    OOP345NDD - WS03 @ 2 Feb 2023
+//Full Name  : Alex Chu
+//Student ID#: 153954219
+//Email      : kchu30@myseneca.ca
+//
+//I have done all the coding by myself and only copied the code
+//that my professor provided to complete my workshops and assdignments.
+******************************************************************************/
+Introduction:
+-------------
+Workshop 3 is about Class Template, Class Variable, Specialisation of a template, Instantiate a template class, Specialise member function, Derive a template class from a base template class.
+
+The reason for specializing the add() member function:
+------------------------------------------------------
+There are two add() member functions added in the Set.h. One is a polymorphic version which echoes the virtual at the base class, the other one is a specialisation of a type to the template.
+
+"bool add(const T& item) override{...}" is a member function override using polymorphism, when the object is a derived class of the base class, it will call this function instead of the base's. The following function compares if the left operand and right operand are the same, if it is then it will have no action and only gives a flag and exit. If it is not duplicated, it will run the "add()" from the base class, am example of a truly polymorphism of C++. Although the code was just a few lines at the end, but I actually drafted a really long version with a new array and new size counter until I realised "No other members needed" so I rewrote again. The logic was a difficult part, because the "m_size++" in the base class only works when it is being called. I put it inside a if-else case in a for loop, so it exits when it doesn't match and it either goes to an endless loop or print out same values or null, with a for loop checking from 0 to "size()" and this size was a "Egg or Chicken first" question because size was zero and only adds up when the base add() runs.  The logic looks neat now, by only gives a flag after the for loop, and other if case to execute add() when the value is not duplicated.
+
+"template<> bool Collection<double, 100>::add(const double& item)" is the second add(). It has the similar logic as above but it serves different purpose. This is a specialisation of the template, to specialise when the type is double, it checks if the two operands are having a minimal difference of 0.01. If it is less than 0.01 it will be consider the same and use the logic above and only add item when they are different. Due to the difference of signature and specialisation, it cannot call the add() from the base class and hence it has its own code. The codes can be seen in my Set.h so I am not going to repeat here, however I would highlight that the "m_size++" counter has to be manually added because it doesn't run the base add() as mentioned. I had some runtime errors when I debug it, so that I found out the size did not increase and went into an infinite loop until it crashes.
+
+
+The reason for defining the class variable outside the class definition:
+------------------------------------------------------------------------
+Class variables (static var) are to define/initiate outside of the class. As the variable is to be shared among the class and until the end of the program, we don't want it to be initiate again inside the class whenever we create a instance of that class. It should be set at ONE time, not everytime when there is a new instance.
+
+An example I used this in my code is to instantiate and initiate the dummy as below:
+template <typename T, unsigned int CAPACITY>
+T Collection<T, CAPACITY>::dummy{};
+
+Explain in the reflection why we do not split a module into *.h and *.cpp like you did in the previous workshops.
+-----------------------------------------------------------
+Templates must be written in header files because it won't be able for other files to search in cpp and will not compile. It actually make sense as the other headers only includes the necessary headers not the "cpp", just like we are not able to access a variable declare inside a cpp of another module.
+
+In the reflection justify why it was necessary to add each one of the members you have decided to add.
+-----------------------------------------------------------
+There are two members I added which is the overloading of both below:
+bool operator==(const Pair&);
+//Extraction operator overload so that it can output the values of the attributes to ostream.
+std::ostream& operator<<(std::ostream& os, const Pair&);
+//This operator overload is mainly for part 2 of this workshop, as a specialisation to compare the Pair class.

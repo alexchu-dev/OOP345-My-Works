@@ -1,5 +1,5 @@
 /******************************************************************************
-//                    OOP345NDD - WS03 @ 31 Jan 2023
+//                    OOP345NDD - WS03 @ 2 Feb 2023
 //Full Name  : Alex Chu
 //Student ID#: 153954219
 //Email      : kchu30@myseneca.ca
@@ -17,35 +17,39 @@
 namespace sdds {
    template<typename T>
    class Set : public Collection<T, 100> {
-      //T tempArray[100]{};
-      /*unsigned int tempSize{};*/
    public:
-      bool operator==(const Collection<T, 100>& RO) {
-         return this->operator[] = RO.operator[];
-      };
-      bool add(T& item) {
-         bool flag{ false };
-         unsigned int tempSize{};
-         tempSize = this->size();
-         //tempArray[tempSize] = item;
-         //std::cout << "Debug: " << tempArray[tempSize];
-
-         for (unsigned int i = 0; i < tempSize; i++)
-         {
-            //if (tempArray[i] == item) {
-            if (item == Collection<T, 100>::operator[](i)) {
-               std::cout << "DUPLICATED!" << std::endl;
-            }
-            else
-            {
-               this->Collection<T, 100>::add(item);
-               flag = true;
+      //This is a member function override using polymorphism, when the object is a derived class of the base class, it will call this function instead of the base's. The following function compares if the left operand and right operand are the same, if it is then it will have no action and only gives a flag and exit. If it is not duplicated, it will run the "add()" from the base class, am example of truly polymorphism of C++.
+      bool add(const T& item) override {
+         bool duplicate{ false };
+         for (unsigned int i = 0; i < this->size(); i++) {
+            if (this->operator[](i) == item) {
+               duplicate = true;
             }
          }
-         tempSize++;
-         return flag;
+         if (duplicate == false)
+         {
+            this->Collection<T, 100>::add(item);
+         }
+         return duplicate;
       };
-
+   };
+   //This is a specialisation of the template, to specialise when the type is double, it checks if the two operands are having a minimal difference of 0.01. If it is less than 0.01 it will be consider the same and use the logic above and only add item when they are different. Due to the difference of signature and specialisation, it cannot call the add() from the base class and hence it has its own code.
+   template<>
+   bool Collection<double, 100>::add(const double& item) {
+      bool duplicate{ false };
+      for (unsigned int i = 0; i < this->size(); i++) {
+         if (std::fabs(this->operator[](i) - item) <= 0.01) {
+            duplicate = true;
+         }
+      }
+      if (duplicate == false)
+      {
+         if (m_size < 100) {
+            m_collection[m_size] = item;
+            m_size++;
+         }
+      }
+      return duplicate;
    };
 }
 #endif
