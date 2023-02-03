@@ -12,6 +12,7 @@
 #define SDDS_SET_H
 #include <iostream>
 #include <string>
+#include <cmath>
 #include "Collection.h"
 #include "Pair.h"
 namespace sdds {
