@@ -18,7 +18,7 @@ std::ostream& sdds::operator<<(std::ostream& os, const Pair& src)
    return os;
 }
 //This operator overload is mainly for part 2 of this workshop, as a specialisation to compare the Pair class.
-bool sdds::Pair::operator==(const Pair& rhs)
+bool sdds::Pair::operator==(const Pair& rhs)const
 {
    return m_key == rhs.m_key;
 }

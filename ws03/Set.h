@@ -27,7 +27,7 @@ namespace sdds {
                duplicate = true;
             }
          }
-         if (duplicate == false)
+         if (duplicate == false && this->size() < 100)
          {
             this->Collection<T, 100>::add(item);
          }

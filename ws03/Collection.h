@@ -1,5 +1,5 @@
 /******************************************************************************
-//                    OOP345NDD - WS03 @ 31 Jan 2023
+//                    OOP345NDD - WS03 @ 2 Feb 2023
 //Full Name  : Alex Chu
 //Student ID#: 153954219
 //Email      : kchu30@myseneca.ca
@@ -26,7 +26,7 @@ namespace sdds {
       virtual ~Collection() {};
 
       //A member function to retrieve the current size.
-      unsigned int size() {
+      unsigned int size() const {
          return m_size;
       };
 

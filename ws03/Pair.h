@@ -26,7 +26,7 @@ namespace sdds {
       //           that are necessary if this class is to be used
       //           with the template classes described below.
       //       Implement them in the Pair.cpp file.
-      bool operator==(const Pair&);
+      bool operator==(const Pair&)const;
    };
    std::ostream& operator<<(std::ostream& os, const Pair&);
 }
