@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="data.txt" />
+    <Text Include="reflect.txt" />
     <Text Include="sample_output.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -135,9 +136,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Toy.cpp" />
-    <ClCompile Include="w4_p1.cpp" />
+    <ClCompile Include="w4_p2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Child.h" />
+    <ClInclude Include="ConfirmOrder.h" />
     <ClInclude Include="Toy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
