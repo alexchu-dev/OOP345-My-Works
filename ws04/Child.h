@@ -11,15 +11,15 @@
 #define SDDS_CHILD_H
 #include <iostream>
 #include <string>
+#include "Toy.h"
 namespace sdds {
-   class Toy; //forward declaration
-   //Aggregation
    class Child {
-      std::string m_childName{};
-      int age{};
-      const Toy** tAgg{}; //this is the syntax of Dynamic Array Pointers of Aggregation. They have weaker relationship and they are responsible for their own destructors
+      std::string m_nameChild{};
+      int m_age{};
+      const Toy** m_toys{}; //this is the syntax of Dynamic Array Pointers of Aggregation? They have weaker relationship and they are responsible for their own destructors
+      unsigned int m_numToys{}; //this is vertical, number of kinds of toys
    public:
-      Child();
+      Child() {};
       Child(std::string name, int age, const Toy* toys[], size_t count);
       ~Child();
       Child(const Child& src);

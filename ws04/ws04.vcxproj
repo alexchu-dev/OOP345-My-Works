@@ -135,6 +135,7 @@
     <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Child.cpp" />
     <ClCompile Include="Toy.cpp" />
     <ClCompile Include="w4_p2.cpp" />
   </ItemGroup>
