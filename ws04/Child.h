@@ -22,11 +22,14 @@ namespace sdds {
       Child() {};
       Child(std::string name, int age, const Toy* toys[], size_t count);
       ~Child();
+      void deallocation();
+      void setChild(std::string name, int age, const Toy* toys[], size_t count, bool copy);
       Child(const Child& src);
       Child& operator=(const Child& src);
-      Child(Child&& src);
-      Child& operator=(Child&& src);
+      Child(Child&& src)noexcept;
+      Child& operator=(Child&& src)noexcept;
       size_t size() const;
+      
       friend std::ostream& operator << (std::ostream& os, const Child& src);
    };
 }
