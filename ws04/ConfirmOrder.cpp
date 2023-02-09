@@ -103,7 +103,7 @@ namespace sdds {
             }
          }
          delete[] m_toysOrder;
-         m_toysOrder = new const Toy * [--m_numOrder];
+         --m_numOrder;
          m_toysOrder = temp_toysOrder; //Passing address only.
       }
       return *this;
