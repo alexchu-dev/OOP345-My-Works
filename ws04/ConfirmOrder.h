@@ -14,7 +14,6 @@
 #include <string>
 #include "Toy.h"
 namespace sdds {
-   class Toy; // forward declaration
    //Aggregation
    class ConfirmOrder {
       const Toy** m_toysOrder{};

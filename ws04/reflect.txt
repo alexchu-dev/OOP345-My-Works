@@ -7,5 +7,49 @@
 //I have done all the coding by myself and only copied the code
 //that my professor provided to complete my workshops and assdignments.
 ******************************************************************************/
-Introduction:
--------------
+Introduction - Composition and Aggregation
+------------------------------------------
+This workshop 4 is to demostrate our understanding or Composition and Aggregation. It also requires the proficiency of knowledge of rule of 5, so that we can successfully separate copy and move tasks, and only if we manage to output the least memory leak we can say that we have a true understanding of it.
+
+Composition has the strongest linkage among three, because it has ownership directly to the component. Aggregation is a bit weaker than composition because it does not own the component, instead they are responsible for their own member resources.
+
+String functions
+----------------
+When doing task 1, we were introduced some very useful string functions that were said to be seen and used more often in the rest of the course. They are find, erase, substr and stoi, stod etc. They work as a combination to achieve the trim function, especially there are a few options for find and stoi series which are worth to take notes of.
+
+I have managed to use the least lines of codes so far which was very satisfying. By combining the functions together without using forloop makes it more efficient in this case. However, I will have to review it in the rest of the course to see if it can be reused as an util.
+      m_orderid = stoi(temp);
+      temp.erase(0, temp.find(":") + 1);
+      temp.erase(0, temp.find_first_not_of(" "));
+      m_nameToy = temp.substr(0, temp.find(":"));
+      m_nameToy.erase(m_nameToy.find_last_not_of(" ") + 1);
+      temp.erase(0, temp.find(":") + 1);
+      m_numItems = stoi(temp);
+      temp.erase(0, temp.find(":") + 1);
+      m_price = stod(temp);
+	
+Reflection Questions:
+----------------------
+This workshop is particular tricky because both of the class Child and ConfirmOrder were to use "const Toy** m_toys" in declaration in headers. As I remembered in lecture, it was mentioned as a signature of Aggregation usually. Obviously, it was not the case because Composition can do it the same. Let's look at how we call this - m_toys is a pointer of pointer of arrays of Toy.
+
+It could be very confusing but when we think clearly it is just a pointer which has a memory address which holds the memory address of an array. In this case, both composition and aggregation can use this signature, by handle it differently makes two differnt class relations.
+
+Relationship between Child and Toy, Child and the array of pointers
+This relationship of Child and Toy is a composition. The relationship between Child and the array of pointers is a ownership, Child owns it and manage the destruction of it. The destructor of array of pointers occurs before the destructor of Child. As such, Child \ has the responsibility to handle and delete the array to avoid memory leak.
+
+Relationship between ComfirmOrder and Toy, ConfirmOrder and the array of pointers
+This relationship of Child and Toy is an aggregation. The relationship between ConfirmOrder and the array is that it loosely hold an array which takes some value "borrow" from the resource of Toy. It has its own dynamic array which points to the address of the toy array, but it doesn't own it like a Child. In the event of delete[] and destructor(), it proceeds with its own one and the resource of Toy will be handled by Toy itself.
+
+In terms of implementation, Child class use Toy array pointer as a parameter in the constructor, where ConfirmOrder does not construct the Toy array pointer. Forwarding member function is not needed in Aggreation.
+
+For example in the Child class, it has two "new" declarations which basically is the Toy* array pointer includes thr Toy's pointer, which is a verticle and horizontal differences in design.
+m_toys = new const Toy * [count];
+    for (auto i = 0u; i < count; i++) {
+        m_toys[i] = new Toy(*(toys[i]));
+    }
+	
+Difference of move and copy functions in a composition and an aggregation
+-------------------------------------------------------------------------
+As mentioned above, the copy constructor of an aggregation is a rather shallow one which points to the Toy resource compare to the copy constructor of the composition which do the whole typical dma allocation.
+
+The move constructor in my own codes does not show much differences in this scenario because they are also just "moving" by pointing to different memory address. The "moving" itself in the ConfirmOrder.cpp is "moving" from one pointer of pointer to another one, while the Child class itself is "moving" the value to its member resource which it owns.
