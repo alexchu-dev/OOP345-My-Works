@@ -75,11 +75,12 @@ namespace sdds {
    Child& Child::operator=(Child&& src)noexcept
    {
       if (this != &src) {
-         delete[] m_toys;
+         deallocation();
          setChild(src.m_nameChild, src.m_age, src.m_toys, src.m_numToys, false);
          src.m_nameChild = "";
          src.m_age = 0;
          src.m_numToys = 0;
+         src.m_toys = nullptr;
       }
       return *this;
    }

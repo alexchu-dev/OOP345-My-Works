@@ -62,7 +62,7 @@ namespace sdds {
             found = true;
          }
       }
-      if (found = false) {
+      if (found == false) {
          const Toy** temp_toysOrder = new const Toy * [++m_numOrder];
          for (auto i = 0u; i < m_numOrder - 1; i++) {
             temp_toysOrder[i] = m_toysOrder[i];
@@ -82,7 +82,14 @@ namespace sdds {
             m_toysOrder[i] = nullptr;
          }
       }
-      if (found = true) {
+      /****** Challenge Part - resize the array after setting nullptr above ******/
+      //The algorithm is to first define a size-1 temp array, move all non nullptr pointers to temp
+      //Then when it is a nullptr, we move the temp array pointer at current pos to the pos+1 of original source
+      //The reason we do this is since the current pos is nullptr, we should +1 to next one.
+      //After that we assign the src as nullptr again, which makes it a loop until it is all sorted.
+      //Note that in else case the condition is m_numOrder-1 because it would exceed over m_numOrder in line 99 when i+1
+      //At the end, we delete *this and resize it with size of (--m_numOrder) and move it back from the temp array.
+      if (found == true) {
          const Toy** temp_toysOrder = new const Toy * [m_numOrder - 1];
          for (auto i = 0u; i < m_numOrder; i++) {
             if (m_toysOrder[i] != nullptr) {
