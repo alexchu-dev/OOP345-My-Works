@@ -12,12 +12,24 @@
 #define SDDS_CONFIRMORDER_H
 #include <iostream>
 #include <string>
+#include "Toy.h"
 namespace sdds {
-   class Toy; //forward declaration
+   class Toy; // forward declaration
    //Aggregation
    class ConfirmOrder {
       const Toy** m_toysOrder{};
+      unsigned int m_numOrder{};
    public:
+      ConfirmOrder() {};
+      ~ConfirmOrder();
+      void deallocation();
+      ConfirmOrder(const ConfirmOrder& src);
+      ConfirmOrder& operator=(const ConfirmOrder& src);
+      ConfirmOrder(ConfirmOrder&& src)noexcept;
+      ConfirmOrder& operator=(ConfirmOrder&& src)noexcept;
+      ConfirmOrder& operator+=(const Toy& toy);
+      ConfirmOrder& operator-=(const Toy& toy);
+      friend std::ostream& operator << (std::ostream& os, const ConfirmOrder& src);
    };
 }
 #endif

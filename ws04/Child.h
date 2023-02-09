@@ -16,7 +16,7 @@ namespace sdds {
    class Child {
       std::string m_nameChild{};
       int m_age{};
-      const Toy** m_toys{}; //this is the syntax of Dynamic Array Pointers of Aggregation? They have weaker relationship and they are responsible for their own destructors
+      const Toy** m_toys{};
       unsigned int m_numToys{}; //this is vertical, number of kinds of toys
    public:
       Child() {};
@@ -29,7 +29,6 @@ namespace sdds {
       Child(Child&& src)noexcept;
       Child& operator=(Child&& src)noexcept;
       size_t size() const;
-      
       friend std::ostream& operator << (std::ostream& os, const Child& src);
    };
 }
