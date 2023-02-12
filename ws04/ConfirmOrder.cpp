@@ -57,7 +57,7 @@ namespace sdds {
    ConfirmOrder& ConfirmOrder::operator+=(const Toy& toy)
    {
       bool found = false;
-      for (auto i = 0u; i < m_numOrder; i++) {
+      for (auto i = 0u; i < m_numOrder && (!found); i++) {
          if (m_toysOrder[i] == &toy) {
             found = true;
          }
@@ -76,7 +76,7 @@ namespace sdds {
    ConfirmOrder& ConfirmOrder::operator-=(const Toy& toy)
    {
       bool found = false;
-      for (auto i = 0u; i < m_numOrder; i++) {
+      for (auto i = 0u; i < m_numOrder && (!found); i++) {
          if (m_toysOrder[i] == &toy) {
             found = true;
             m_toysOrder[i] = nullptr;
