@@ -148,7 +148,7 @@ int main(int argc, char** argv)
    }
 
    std::cout << "-----------------------------------------\n";
-   std::cout << "The content (updated prices)\n";
+   std::cout << "The library content (updated prices)\n";
    std::cout << "-----------------------------------------\n";
    std::cout << library;
    std::cout << "-----------------------------------------\n\n";
