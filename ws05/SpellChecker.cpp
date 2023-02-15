@@ -39,10 +39,9 @@ namespace sdds {
 
    void SpellChecker::operator()(std::string& text)
    {
-      for (auto i = 0; i < MAX_WORDS; i++) {
-         size_t pos = text.find(m_badWords[i]);
-         if (pos != string::npos) {
-            text.replace(pos, m_badWords[i].length(), m_goodWords[i]);
+      for (size_t i = 0; i < MAX_WORDS; i++) {
+         while (text.find(m_badWords[i]) != string::npos) {
+            text.replace(text.find(m_badWords[i]), m_badWords[i].length(), m_goodWords[i]);
             m_count[i]++;
          }
       }
@@ -51,7 +50,7 @@ namespace sdds {
    void SpellChecker::showStatistics(std::ostream& out) const
    {
       out << "Spellchecker Statistics" << endl;
-      for (auto i = 0; i < MAX_WORDS; i++) {
+      for (size_t i = 0; i < MAX_WORDS; i++) {
          out.setf(ios::right);
          out.width(15);
          out << m_badWords[i] << ": " << m_count[i] << " replacements" << endl;
