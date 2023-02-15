@@ -22,6 +22,7 @@ namespace sdds {
       const std::string& title() const { return m_title; }
       Movie(const std::string& strMovie);
       friend std::ostream& operator << (std::ostream& os, const Movie& src);
+      //This is a template function which operates as a functor. It sits inside of the header.
       template<typename T>
       void fixSpelling(T& spellChecker) {
          spellChecker(m_title);

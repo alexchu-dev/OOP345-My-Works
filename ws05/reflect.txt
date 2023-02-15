@@ -1,0 +1,86 @@
+/******************************************************************************
+//                    OOP345NDD - WS05 @ 9 Feb 2023
+//Full Name  : Alex Chu
+//Student ID#: 153954219
+//Email      : kchu30@myseneca.ca
+//
+//I have done all the coding by myself and only copied the code
+//that my professor provided to complete my workshops and assdignments.
+******************************************************************************/
+Introduction: This workshop is a practice of functions and error handling, however, it also demands the usage of class templates, enumerations etc.
+This workshop is to load collections of books and movies from text files, then by loading another text file to find the wrong spellings and replace them with correct ones.
+/*************************************************************/
+Reflections:
+1. The difference between the implementations/utilizations of a functor and a lambda expression. When is appropriate to use each one?
+
+Functors uses the operator () overload to make it a function object. It can work similar to function pointers but it can store state. It makes the class object a function and receives / pass arguments to another function or so.
+
+Lambda itself is considered as a sugar for function objects, it is a convenient way to define anonymous function objects. It encapsulate a number of lines that is being passed to algorithms or asychronous functions. Its compact syntax is a convenient tool that we can make use of. Consider below the lambda expression I declared in the main cpp:
+ auto fixPrice = [&](Book& book) {
+      if (book.country() == "US") {
+         book.price() *= usdToCadRate;
+      }
+      else if (book.country() == "UK" && book.year() >= 1990 && book.year() <= 1999) {
+         book.price() *= gbpToCadRate;
+      }
+   };
+
+From further research on this topic, there are a few sources I read:
+Function Objects vs. Lambdas (link https://learn.microsoft.com/en-us/cpp/cpp/lambda-expression-syntax?view=msvc-170)
+C++ Lambda (link https://www.programiz.com/cpp-programming/lambda-expression)
+
+According to Microsoft, it explains the existance of lambda isn't just a sugar, it combines both the advantages of function pointers and function objects and at the same time it get rids of their disadvantages. Lambda can store states as what functor does, however its compact syntax save some time on the extra class definition works when using functors. Thanks to the compact codes, lambda is less inclined to errors than functors. Lambda is useful when you need to define a small function object that is only used in one place, or when you want to define a function object with capture, i.e., a function object that can access variables from the enclosing scope.
+
+In general, if we need to define a functor that will be reused in multiple places, or if we need to define a functor with state that can be shared between calls, a functor may be more appropriate. If we only need to define a small function object that will only be used once (such as anonymous one that lambda expression offers), and we don't need to share state between calls, a lambda expression may be more concise and easier to read. However, the decision of when to use functors or lambda expressions ultimately depends on the specific requirements of our code and our personal preference. This is pretty similar to how we work with Javascript.
+
+/*************************************************************/
+
+2. The constructor for SpellChecker generates an exception in certain conditions. How would you change your code to achieve the same result, but without exceptions (both on the constructor and on the client side)? Compare the two solutions.
+
+To achieve the same result without using exceptions, we can modify the constructor to return an error code if the file could not be opened or if the file contains more than MAX_WORDS which affects the counter (which in some case we cannot totally prevent especially with a massive or complicated source of data file). We can then modify the client code to check for the error code and handle the error appropriately. Here's how the modified code might look:
+
+SpellChecker::SpellChecker(const char* filename)
+{
+   size_t cnt = 0;
+   ifstream file(filename);
+   if (!file)
+   {
+      m_errorCode = ERROR_BAD_FILENAME; //Instead of thrwoing exception and terminate the program, returning an error code could be a better option in some situations.
+      return;
+   }
+   string strWord;
+   do {
+      getline(file, strWord);
+      if (file) {
+         size_t pos = strWord.find(" ");
+         m_badWords[cnt] = strWord.substr(0, pos);
+         strWord.erase(0, pos);
+         m_goodWords[cnt] = strWord.erase(0, strWord.find_first_not_of(" "));
+         cnt++;
+      }
+   } while (file && cnt < MAX_WORDS);
+   file.close();
+   ...
+   ...
+}
+
+The client side can use some functions to check the error code and cout specific error messages like follow:
+// Client code
+SpellChecker checker("filename.txt");
+if (checker.getErrorCode() == ERROR_BAD_FILENAME)
+{
+   cout << "Bad file name!" << endl;
+   return 1;
+}
+
+In this modified code, we added an m_errorCode member variable to the SpellChecker class to store the error code, and we also added a getErrorCode() method to retrieve the error code. If the file could not be opened, we set the error code to ERROR_BAD_FILENAME.
+
+In the client code, we use the getErrorCode() method to check for errors after constructing the SpellChecker object. If there was an error, we print an appropriate error message and return a non-zero exit code. If there was no error, we can proceed to use the SpellChecker object normally.
+
+Compared to the original code that used exceptions, this modified code requires more error checking in the client code, and it is generally more verbose. However, it can be more efficient in some cases since it does not have the overhead of exception handling. Additionally, in some case which may prohibit the use of exceptions, the modified code may be more appropriate.
+
+/*************************************************************/
+
+3. The classes Movie and Book contain almost identical logic in loading data from the file. How would you redesign the classes in order not to duplicate that logic?
+
+4. The classes Movie and Book are instantiated from the main() function using a custom constructor, but they also contain a default constructor. Is the default constructor necessary? Could you remove it? Justify your answer.

@@ -15,6 +15,7 @@
 #include "SpellChecker.h"
 using namespace std;
 namespace sdds {
+   //SpellChecker receives a dictionary's file name and stores the contents as bad words and good words for substitution using the operator overload below
    SpellChecker::SpellChecker(const char* filename)
    {
       size_t cnt = 0;
@@ -36,7 +37,7 @@ namespace sdds {
       } while (file && cnt < MAX_WORDS);
       file.close();
    }
-
+   //This operator overload serves the functions to replace the bad words with the good ones. It uses find(), replace(), length() and string::npos which is something new in this two workshops.
    void SpellChecker::operator()(std::string& text)
    {
       for (size_t i = 0; i < MAX_WORDS; i++) {
@@ -46,7 +47,7 @@ namespace sdds {
          }
       }
    }
-
+   //The following functions shows the records of how many word replacements have been made by the SpellChecker.
    void SpellChecker::showStatistics(std::ostream& out) const
    {
       out << "Spellchecker Statistics" << endl;

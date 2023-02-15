@@ -20,15 +20,16 @@ namespace sdds {
       size_t m_size{};
       void (*m_observer)(const Collection<T>&, const T&) {};
    public:
-      Collection(const std::string& name) : m_name{ name } {};
-      Collection(const Collection&) = delete;
-      Collection& operator=(const Collection&) = delete;
-      ~Collection() { delete[] m_array; };
-      const std::string& name() const { return m_name; }
-      size_t size() const { return m_size; }
-      void setObserver(void (*observer)(const Collection<T>&, const T&)) {
+      Collection(const std::string& name) : m_name{ name } {};  //1 arg constructor with default value name. Other values already initialised above when declared.
+      Collection(const Collection&) = delete; //delete to prevent copying
+      Collection& operator=(const Collection&) = delete; //delete to prevent copying
+      ~Collection() { delete[] m_array; }; //basic destructor to delete the dynamic array member.
+      const std::string& name() const { return m_name; } //basic function to return the name (private member)
+      size_t size() const { return m_size; } //basic function to return the size (private member)
+      void setObserver(void (*observer)(const Collection<T>&, const T&)) { //basic function to set the pointer of function observer (private member)
          m_observer = observer;
       }
+      //The following is a += operator overload function. It receives a reference to a constant T object and process it. if it is found in the record do nothing. If it is new to the array then add it to the array and resize it.
       Collection<T>& operator+=(const T& item) {
          bool found = false;
          for (size_t i = 0; i < m_size; i++) {
@@ -50,6 +51,7 @@ namespace sdds {
          }
          return *this;
       }
+      //This is to overload the [] operator. It receives an index and returns the item at that specific index as a reference to a constant T object.
       T& operator[](size_t idx) const {
          if (idx >= m_size || idx < 0) {
             std::string e = "Bad index [";
@@ -58,6 +60,7 @@ namespace sdds {
          }
          return m_array[idx];
       }
+      //This is to overload the [] operator as well. It receives a reference of a const string and find it in the function. If it matches the record, it returns a pointer of T.
       T* operator[](const std::string& title) const {
          T* index = nullptr;
          for (size_t i = 0; i < m_size; i++) {
@@ -68,6 +71,7 @@ namespace sdds {
          return index;
       }
    };
+   //Helper function overloading the << operator.
    template<typename T>
    std::ostream& operator<<(std::ostream& os, const Collection<T>& src) {
       for (size_t i = 0; i < src.size(); i++) {

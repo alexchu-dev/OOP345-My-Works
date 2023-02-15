@@ -28,6 +28,8 @@ namespace sdds {
       double& price() { return m_price; }
       Book(const std::string& strBook);
       friend std::ostream& operator << (std::ostream& os, const Book& src);
+
+      //This is a template function which operates as a functor. It sits inside of the header.
       template<typename T>
       void fixSpelling(T& spellChecker)
       {

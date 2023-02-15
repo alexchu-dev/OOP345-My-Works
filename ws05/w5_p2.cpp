@@ -119,7 +119,7 @@ int main(int argc, char** argv)
 
    // TODO: (from part #1) create a lambda expression that fixes the price of a book accoding to the rules
    //       - the expression should receive a single parameter of type "Book&"
-   auto fixPrice = [usdToCadRate, gbpToCadRate](Book& book) {
+   auto fixPrice = [&](Book& book) {
       // - if the book was published in US, multiply the price with "usdToCadRate"
       // and save the new price in the book object
       if (book.country() == "US") {
