@@ -26,14 +26,17 @@ namespace sdds {
       }
       string strWord;
       do {
-         getline(file, strWord);
+         file >> m_badWords[cnt];
+         file >> m_goodWords[cnt];
+         cnt++;
+         /*getline(file, strWord);
          if (file) {
             size_t pos = strWord.find(" ");
             m_badWords[cnt] = strWord.substr(0, pos);
             strWord.erase(0, pos);
             m_goodWords[cnt] = strWord.erase(0, strWord.find_first_not_of(" "));
             cnt++;
-         }
+         }*/
       } while (file && cnt < MAX_WORDS);
       file.close();
    }
