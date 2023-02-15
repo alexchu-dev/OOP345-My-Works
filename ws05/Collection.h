@@ -31,14 +31,14 @@ namespace sdds {
       }
       Collection<T>& operator+=(const T& item) {
          bool found = false;
-         for (auto i = 0; i < m_size; i++) {
+         for (size_t i = 0; i < m_size; i++) {
             if (m_array[i].title() == item.title()) {
                found = true;
             }
          }
          if (found == false) {
             T* temp_array = new T[++m_size];
-            for (auto i = 0; i < m_size - 1; i++) {
+            for (size_t i = 0; i < m_size - 1; i++) {
                temp_array[i] = m_array[i];
             }
             temp_array[m_size - 1] = item;
@@ -60,7 +60,7 @@ namespace sdds {
       }
       T* operator[](const std::string& title) const {
          T* index = nullptr;
-         for (auto i = 0; i < m_size; i++) {
+         for (size_t i = 0; i < m_size; i++) {
             if (m_array[i].title() == title) {
                index = &m_array[i];
             }
@@ -70,7 +70,7 @@ namespace sdds {
    };
    template<typename T>
    std::ostream& operator<<(std::ostream& os, const Collection<T>& src) {
-      for (auto i = 0; i < src.size(); i++) {
+      for (size_t i = 0; i < src.size(); i++) {
          os << src[i];
       }
       return os;
