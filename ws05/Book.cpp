@@ -20,7 +20,7 @@ namespace sdds {
       //Temp assigned as a copy of the received string. TempCopy is an array to store the first 3 strings and assign it to the corresponding member variables after processed.
       string temp = strBook;
       string tempCopy[3]{};
-      for (int i = 0; i < 3; i++) {
+      for (auto i = 0; i < 3; i++) {
          temp.erase(0, temp.find_first_not_of(" "));
          tempCopy[i] = temp.substr(0, temp.find(","));
          tempCopy[i].erase(tempCopy[i].find_last_not_of(" ") + 1);
@@ -31,7 +31,7 @@ namespace sdds {
       m_country = tempCopy[2];
       m_price = stod(temp);
       temp.erase(0, temp.find(",") + 1);
-      m_year = stod(temp);
+      m_year = stoi(temp);
       temp.erase(0, temp.find(",") + 1);
       temp.erase(0, temp.find_first_not_of(" "));
       m_desc = temp.substr(0, temp.find("\n"));
