@@ -44,7 +44,7 @@ namespace sdds {
             }
             temp_array[m_size - 1] = item;
             delete[] m_array;
-            m_array = temp_array; //Passing address only.
+            m_array = temp_array; //Passing address only. No need to worry about mem leak.
             if (m_observer) {
                m_observer(*this, m_array[m_size - 1]);
             }
