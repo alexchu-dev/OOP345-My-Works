@@ -52,7 +52,7 @@ namespace sdds {
          return *this;
       }
       //This is to overload the [] operator. It receives an index and returns the item at that specific index as a reference to a constant T object.
-      T& operator[](size_t idx) const {
+      Collection <T>& operator[](size_t idx) const {
          if (idx >= m_size || idx < 0) {
             std::string e = "Bad index [";
             e = e + std::to_string(idx) + "]. Collection has [" + std::to_string(m_size) + "] items.";
