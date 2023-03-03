@@ -131,6 +131,7 @@
     <Text Include="sample_output.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="College.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="Person.h" />
   </ItemGroup>
@@ -139,6 +140,7 @@
     <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="College.cpp" />
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="w6_p1.cpp" />
   </ItemGroup>
