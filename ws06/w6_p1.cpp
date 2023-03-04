@@ -25,7 +25,7 @@ void loadData(const char* filename, sdds::College& theCollege)
          if (thePerson)
             theCollege += thePerson;
       }
-      catch (char* msg) {
+      catch (const std::string msg) {
          std::cout << msg;
       }
    }

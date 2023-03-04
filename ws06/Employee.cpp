@@ -32,15 +32,11 @@ namespace sdds {
       }
       temp.erase(0, temp.find(",") + 1);
       temp.erase(0, temp.find_first_not_of(" "));
-      try {
-         if (temp[0] == 'e' || temp[0] == 'E')
-            m_id = temp.erase(temp.find_last_not_of(" ") + 1);
-         else {
-            throw ("++Invalid record!");
-         }
-      }
-      catch (const char* e) {
-         cout << m_name << e << endl;
+      if (temp[0] == 'e' || temp[0] == 'E')
+         m_id = temp.erase(temp.find_last_not_of(" ") + 1);
+      else {
+         string e = m_name + "++Invalid record!\n";
+         throw (e);
       }
    }
    std::string Employee::status() const
@@ -77,7 +73,7 @@ namespace sdds {
       os << "| ";
       os.width(3);
       os << m_age;
-      os << "|";
+      os << "|" << endl;
    }
 
 }

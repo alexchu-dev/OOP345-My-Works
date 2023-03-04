@@ -16,15 +16,17 @@ using namespace std;
 namespace sdds {
    Person* buildInstance(std::istream& in)
    {
-      string tempStr{};
-      Person* tempPer{};
-      getline(in, tempStr, '\n');
-      if (tempStr[0] == 'e' || tempStr[0] == 'E') {
-         tempPer = new Employee(in);
+      string line{};
+      stringstream tempStream{};
+      Person* personPtr{};
+      getline(in, line, '\n');
+      tempStream << line;
+      if (line[0] == 'e' || line[0] == 'E') {
+         personPtr = new Employee(tempStream);
       }
       else {
-         throw ("Invalid!");
+         personPtr = nullptr;
       }
-      return tempPer;
+      return personPtr;
    }
 }
