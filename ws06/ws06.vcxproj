@@ -134,6 +134,7 @@
     <ClInclude Include="College.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="Person.h" />
+    <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="person_hierarchy.svg" />
@@ -142,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="College.cpp" />
     <ClCompile Include="Employee.cpp" />
+    <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="w6_p1.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
