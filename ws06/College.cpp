@@ -13,6 +13,12 @@
 #include "College.h"
 using namespace std;
 namespace sdds {
+   College::~College()
+   {
+      for (auto it = m_persons.begin(); it != m_persons.end(); it++) {
+         delete (*it);
+      }
+   }
    College& College::operator+=(Person* thePerson)
    {
       m_persons.push_back(thePerson);

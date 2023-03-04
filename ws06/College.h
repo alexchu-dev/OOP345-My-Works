@@ -19,6 +19,7 @@ namespace sdds
       std::vector<Person*> m_persons;
    public:
       College() {};
+      ~College();
       College(const College& src) = delete;
       College& operator +=(Person* thePerson);
       void display(std::ostream& out) const;
