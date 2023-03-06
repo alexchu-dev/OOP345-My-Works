@@ -48,7 +48,7 @@ namespace sdds {
          cout << "| ";
          cout.width(20);
          cout << (*it)->name();
-         cout << "| ";
+         cout << " | ";
          cout.width(3);
          cout << (*it)->age();
          cout << " |" << endl;
