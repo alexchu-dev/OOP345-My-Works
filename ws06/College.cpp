@@ -15,7 +15,7 @@ using namespace std;
 namespace sdds {
    College::~College()
    {
-      for (auto it = m_persons.begin(); it != m_persons.end(); it++) {
+      for (auto it = m_persons.begin(); it != m_persons.end(); ++it) {
          delete (*it);
       }
    }
@@ -24,19 +24,20 @@ namespace sdds {
       m_persons.push_back(thePerson);
       return *this;
    }
-   void College::display(std::ostream& out) const
+   void College::display(ostream& out) const
    {
-      cout << "-----------------------------------------" << endl;
-      cout << " Test #1 Persons in the college!        |" << endl;
-      cout << "-----------------------------------------" << endl;
-      for (auto it = m_persons.begin(); it != m_persons.end(); it++) {
+      cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+      cout << "|                                        Test #1 Persons in the college!                                               |" << endl;
+      cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+      for (auto it = m_persons.begin(); it != m_persons.end(); ++it) {
          (*it)->display(out);
+         cout << endl;
       }
 
-      cout << "-----------------------------------------" << endl;
-      cout << " Test #2 Persons in the college!        |" << endl;
-      cout << "-----------------------------------------" << endl;
-      for (auto it = m_persons.begin(); it != m_persons.end(); it++) {
+      cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+      cout << "|                                        Test #2 Persons in the college!                                               |" << endl;
+      cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
+      for (auto it = m_persons.begin(); it != m_persons.end(); ++it) {
          cout.setf(ios::left);
          cout << "| ";
          cout.width(10);
@@ -50,8 +51,8 @@ namespace sdds {
          cout << "| ";
          cout.width(3);
          cout << (*it)->age();
-         cout << "|" << endl;
+         cout << " |" << endl;
       }
-      cout << "-----------------------------------------" << endl;
+      cout << "------------------------------------------------------------------------------------------------------------------------" << endl;
    }
 }

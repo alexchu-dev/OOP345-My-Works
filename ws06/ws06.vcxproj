@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="college.txt" />
     <Text Include="college_clean.txt" />
     <Text Include="sample_output.txt" />
   </ItemGroup>
@@ -134,6 +135,8 @@
     <ClInclude Include="College.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="Person.h" />
+    <ClInclude Include="Professor.h" />
+    <ClInclude Include="Student.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
@@ -143,8 +146,10 @@
   <ItemGroup>
     <ClCompile Include="College.cpp" />
     <ClCompile Include="Employee.cpp" />
+    <ClCompile Include="Professor.cpp" />
+    <ClCompile Include="Student.cpp" />
     <ClCompile Include="Utilities.cpp" />
-    <ClCompile Include="w6_p1.cpp" />
+    <ClCompile Include="w6_p2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
