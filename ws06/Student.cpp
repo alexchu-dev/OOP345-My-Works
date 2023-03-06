@@ -92,7 +92,7 @@ namespace sdds {
       os << "| ";
       os.width(20);
       os << m_name;
-      os << "| ";
+      os << " | ";
       os.width(3);
       os << m_age;
       os << " |";
