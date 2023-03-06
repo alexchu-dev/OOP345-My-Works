@@ -7,5 +7,52 @@
 //I have done all the coding by myself and only copied the code
 //that my professor provided to complete my workshops and assdignments.
 ******************************************************************************/
-Introduction - Composition and Aggregation
-------------------------------------------
+Introduction - STL, Containers, Exception handling and Lambda Expression
+------------------------------------------------------------------------
+Justify decisions in the workshop:
+Employee Module - decision on choosing types for attributes:
+std::string m_name{};
+std::string m_age{};
+std::string m_id{};
+Initially, I used "size_t" on m_age and used stoi to throw its exception when there is non digit in the raw data. However, it was inconvenient for me because stoi generates its own exception right away when it hits a char, it was not possible for me to make my own exception message. Therefore, I make it a string as well, and I check the input by using a customised a boolean return function my_isdigit to check if the string contains non digits. By doing so, I can create a if else condition to throw my own error messages. The my_name and my_id are straight forward because they are supposed to be strings.
+
+Student Module - decision on choosing types for attributes:
+std::string m_name{};
+std::string m_age{};
+std::string m_id{};
+std::string* m_courses{};
+size_t m_count{};
+Same as above, I used string for m_age. For m_count, I used size_t in here. However, it the cpp file I getline and store it in a temp string "count" first. The "count" is being trimmed and check by "my_isdigit" which receives a string value, then if it is true, m_count = stoi(count). In this case, I can also throw an error message in case the m_count is not a valid number. (It is not required in the workshop, but I do it in my own practise, just in case.)
+
+Reflection Questions:
+1. Why do you need to deallocate the dynamically allocated memory in your vector?
+Although vector is usually destroyed by itself, dynamically allocated pointers with vector is not the case. All objects in vector of pointers of class must be explicitly deleted. Dynamically allocated memory needs to be deallocated in order to free up the memory that was previously allocated. Therefore, even though vector is being used in here, as long as it is a pointer and the "new" has been used, we should be aware of the memory leak and manually deallocation is expected. 
+Refer to the code in Utilities.cpp, Persons pointer were manually created regardless it is a vector:
+      Person* personPtr{};
+	  ...
+      if (line[0] == 'e' || line[0] == 'E') {
+         personPtr = new Employee(tempStream);
+      }
+      ...
+
+2. When building an object from the input file, different things can go wrong: the record represents an unknown type of person, or record contains invalid data. How can the function loadData() detect what went wrong? Can you think at another solution than the one you have implemented?
+Input files can introduce different problems to the code and causing runtime errors. To avoid such cases, the loadData() has implemented try and catch which in case there is any exception occurs, the catch part will get the exception message. In my case, I have written the code as below:
+      try {
+         thePerson = sdds::buildInstance(file);
+         if (thePerson)
+            theCollege += thePerson;
+      }
+      catch (const std::string msg) {
+         std::cout << msg;
+      }
+      catch (...) {
+         std::cout << "Error! Unknown exception caught, please check the code!" << std::endl;
+      }
+Although it might not be the best method, but the first "catch" grab the exception string being thrown which indicates the errors, while the second "catch" is responsible for the rest of the unknown/ unpredicted problems so that it still catch the excetion first and let the program runs.
+
+Another solution is having the function returning error codes and using switch case to refer to the problems. Or, generating logs to record all errors and warnings.
+
+3. In this workshop you had to use std::list<sdds::Person*> and std::vector<sdds::Person*> to store a collection of persons as pointers. Could you have used std::list<sdds::Person> and std::vector<sdds::Person> instead? Justify your answer!
+My answer would be "No" because I don't think we can instantiate the abstract class and derived class with a vector of abstract class. It might be possible in some complicated and alternate way but it would be out of my knowledge. We will receive an error as it cannot instantiate abstract class, therefore we also won't be able to store instances of the derived class.
+However, very soon in the new topics about Smart Pointers would have been a great helper on managing the object resource. 
+

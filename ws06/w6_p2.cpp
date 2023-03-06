@@ -28,6 +28,9 @@ void loadData(const char* filename, sdds::College& theCollege)
       catch (const std::string msg) {
          std::cout << msg;
       }
+      catch (...) {
+         std::cout << "Error! Unknown exception caught, please check the code!" << std::endl;
+      }
    }
 }
 

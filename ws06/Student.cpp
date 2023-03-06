@@ -14,7 +14,7 @@ using namespace std;
 namespace sdds {
    Student::Student(istream& is)
    {
-      string tag, age, courseNum, temp{};
+      string tag, age, count, temp{};
       getline(is, tag, ','); // Tag has been processed by Utilities already, do a pass-by only
       getline(is, m_name, ',');
       trim(m_name);
@@ -36,9 +36,9 @@ namespace sdds {
          throw (e);
       }
       // The following for the number of course works similar to the age above, however this one is to avoid if age and id passed but there is invalid courses number and courses detail. Throws error when it is invalid.
-      getline(is, courseNum, ',');
-      trim(courseNum);
-      if (my_isdigit(courseNum)) m_count = stoi(courseNum);
+      getline(is, count, ',');
+      trim(count);
+      if (my_isdigit(count)) m_count = stoi(count);
       else {
          string e = m_name + "++Invalid record!\n";
          throw (e);
