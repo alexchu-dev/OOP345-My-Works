@@ -80,3 +80,19 @@ public:
       return os;
    }
 };
+std::string abc() {
+   std::string abc = "xuz";
+   std::cin >> abc;
+   std::cout << 999 << std::endl;
+   return abc;
+}
+int main() {
+   std::cout << abc();
+   double x[]{ 1.1,2.2,3.3,4.4 };
+
+   int j = 2;
+
+   std::cout << *(j + x);
+   std::cout << x[j];
+   return 0;
+}
