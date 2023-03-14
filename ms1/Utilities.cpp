@@ -24,6 +24,7 @@ namespace sdds {
       string token;
       size_t found = str.find(m_delimiter, next_pos);
       token = str.substr(next_pos, found - next_pos);
+      trim(token);
       if (found == next_pos) {
          more = false;
          string e = "Error: A delimiter is found at " + next_pos;

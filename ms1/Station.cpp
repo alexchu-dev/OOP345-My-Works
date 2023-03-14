@@ -56,7 +56,9 @@ namespace sdds {
          os.setf(ios::right);
          os << setw(4) << m_numInStock << " | ";
          os.unsetf(ios::right);
+         os.setf(ios::left);
          os << m_desc;
+         os.unsetf(ios::left);
       }
       os << endl;
    }
