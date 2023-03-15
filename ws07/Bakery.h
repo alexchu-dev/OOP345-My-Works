@@ -31,6 +31,7 @@ namespace sdds {
       void showGoods(std::ostream& os) const;
    };
    std::ostream& operator<<(std::ostream& os, const BakedGood& bg);
+   std::string& trim(std::string& s);
 }
 #endif
 

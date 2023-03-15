@@ -14,7 +14,6 @@
 #include <fstream>
 #include <iomanip>
 #include "Bakery.h"
-#include "Utilities.h"
 using namespace std;
 namespace sdds {
    /* Using map to map the enum to string for i/o */
@@ -73,5 +72,11 @@ namespace sdds {
       os << setw(5) << bg.m_stock << " * ";
       os << right << fixed << setprecision(2) << setw(8) << bg.m_price << " * " << endl;
       return os;
+   }
+   std::string& trim(std::string& s)
+   {
+      s.erase(0, s.find_first_not_of(" "));  // Erase leading spaces
+      s.erase(s.find_last_not_of(" ") + 1);  // Erase trailing spaces
+      return s;
    }
 }
