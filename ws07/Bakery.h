@@ -10,18 +10,18 @@
 ******************************************************************************/
 #ifndef SDDS_BAKERY_H
 #define SDDS_BAKERY_H
-#include <string>
 #include <vector>
+#include <map>
 namespace sdds {
    enum class BakedType {
       BREAD, PASTERY
    };
    struct BakedGood {
-      BakedType m_type;
+      BakedType m_type = BakedType::BREAD;
       std::string m_desc{};
       size_t m_shelfLife{};
       size_t m_stock{};
-      double m_price{};
+      double m_price{ 0.0 };
    };
    class Bakery
    {
@@ -30,7 +30,7 @@ namespace sdds {
       Bakery(const std::string filename);
       void showGoods(std::ostream& os) const;
    };
-   std::ostream& operator<<(std::ostream& out, const BakedGood& b);
+   std::ostream& operator<<(std::ostream& os, const BakedGood& bg);
 }
 #endif
 
