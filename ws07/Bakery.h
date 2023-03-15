@@ -14,7 +14,7 @@
 #include <map>
 namespace sdds {
    enum class BakedType {
-      BREAD, PASTERY
+      BREAD, PASTRY
    };
    struct BakedGood {
       BakedType m_type = BakedType::BREAD;

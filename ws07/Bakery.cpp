@@ -19,7 +19,7 @@ namespace sdds {
    /* Using map to map the enum to string for i/o */
    std::map<BakedType, std::string> bakedTypeNames{
     {BakedType::BREAD, "Bread"},
-    {BakedType::PASTERY, "Pastery"}
+    {BakedType::PASTRY, "Pastry"}
    };
 
    Bakery::Bakery(const std::string filename)
@@ -38,7 +38,7 @@ namespace sdds {
             *  transform(token.begin(), token.end(), token.begin(), ::toupper); */
             trim(token = line.substr(0, 8));
             if (token == "Bread") bg.m_type = BakedType::BREAD;
-            else if (token == "Pastery") bg.m_type = BakedType::PASTERY;
+            else if (token == "Pastry") bg.m_type = BakedType::PASTRY;
             bg.m_desc = trim(token = line.erase(0, 8).substr(0, 20));
             bg.m_shelfLife = stoi(line.erase(0, 20).substr(0, 14));
             bg.m_stock = stoi(line.erase(0, 14).substr(0, 8));
