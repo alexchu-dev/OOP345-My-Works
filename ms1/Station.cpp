@@ -18,8 +18,8 @@ namespace sdds {
    Station::Station(const string& str)
    {
       Utilities util;
-      size_t next_pos = 0;
       bool more = true;
+      size_t next_pos = 0u;
       m_id = ++id_generator;
       m_name = util.extractToken(str, next_pos, more);
       m_serial = stoi(util.extractToken(str, next_pos, more));
