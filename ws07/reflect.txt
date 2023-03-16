@@ -1,1 +1,44 @@
-dummy
+/******************************************************************************
+//                    OOP345NDD - WS07 @ 16 Mar 2023
+//Full Name  : Alex Chu
+//Student ID#: 153954219
+//Email      : kchu30@myseneca.ca
+//
+//I have done all the coding by myself and only copied the code
+//that my professor provided to complete my workshops and assdignments.
+******************************************************************************/
+STL Algorithms
+----------------------
+Personal reflect about this workshop:
+
+In this workshop, I had the opportunity to review and rewatch all the lectures, supplementary videos, notes, cppreference, cplusplus.com etc. and then to learn and hands-on with a number of algorithms by reading and coding them.
+I also had the chance to actually code with enum class, which was very challenging because enum class is more stricted compared to plain enum. As I remember this is only the 2nd time I have used it. Eventually, I used it together with std::map in my work instead of writing an operator overload to insert to ostream.
+
+The readme of the workshop costs an amount of time to understand. The structure with enum, struct and a Bakery class using the struct itself are complicated. Together with the very new container topic of vector, list combining all the algorithms to demostrate in one workshop, it requires a lot of effort to understand more in depth and actually having the sleeves rolled and hands dirty compare to just sit and watching lectures.
+
+However, this also offers me a great chance to learn some common algorithms which finally I can learn and use them officially, after all these 3 semsters of hard work and playing with the codes from scratch in the Hello World. Learning from building sand castles and now with the castles already prepared, the up and coming will be all about how to use these skills to convert concepts into lines of codes.
+
+There are not a lot of lines of code in this workshop, but the challenging part is all about brain storming and using the suitable algorithms in the right place. So, let me start answering the 3 questions down below.
+
+
+------------------------
+Reflection questions:
+
+Q1. List all the STL functions that you have used in this workshop; explain your reasoning for choosing each one, and not another.
+"STL functions" I assume which is referring to Algorithms not including std::vector, std::list etc. Below includes the algorithms I decided to use and the reason.
+for_each - This is the first algo I started with because it was in Part 1. Instead of writing a classic manual for loop, I used a for_each in the showGoods function. It iterates the Bakery vector m_collection, then by passing references of the ostream and the struct of the m_collection, it outputs the details of the iteration with the extraction function. It saves time and have a much tidier syntax, which is also not prone to errors.
+
+accumulate - Also in the showGoods function, it goes through the iteration itself and sum up the required field for Total Stock and Total Price.
+sort - 
+merge - 
+any_of - 
+copy_if -
+
+
+
+
+
+
+
+Q2. Present the advantages of using STL algorithms vs. implementing the functionality by yourself using loops.
+Q3. For the sortBakery function, would anything differ in how it is implemented if the choice of collection was either a vector or a list? If there is a difference what is it?
