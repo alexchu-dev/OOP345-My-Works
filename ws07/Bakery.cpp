@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <numeric>
 #include <fstream>
 #include <iomanip>
 #include "Bakery.h"
@@ -19,10 +20,10 @@ namespace sdds {
    /* Using map to map the enum to string for i/o */
    std::map<BakedType, std::string> bakedTypeNames{
     {BakedType::BREAD, "Bread"},
-    {BakedType::PASTRY, "Pastry"}
+    {BakedType::PASTERY, "Pastry"}
    };
 
-   Bakery::Bakery(const std::string filename)
+   Bakery::Bakery(const std::string& filename)
    {
       ifstream file(filename);
       string line;
@@ -34,11 +35,8 @@ namespace sdds {
       {
          try {
             BakedGood bg;
-            /* Retrieve first token and trim. In the case if we need it to be upper, we can use transform after trim:
-            *  transform(token.begin(), token.end(), token.begin(), ::toupper); */
-            trim(token = line.substr(0, 8));
-            if (token == "Bread") bg.m_type = BakedType::BREAD;
-            else if (token == "Pastry") bg.m_type = BakedType::PASTRY;
+            // Retrieve token, trim, assign enum
+            bg.m_type = trim(token = line.substr(0, 8)) == "Bread" ? BakedType::BREAD : bg.m_type = BakedType::PASTERY;
             bg.m_desc = trim(token = line.erase(0, 8).substr(0, 20));
             bg.m_shelfLife = stoi(line.erase(0, 20).substr(0, 14));
             bg.m_stock = stoi(line.erase(0, 14).substr(0, 8));
@@ -58,10 +56,44 @@ namespace sdds {
    }
    void Bakery::showGoods(std::ostream& os) const
    {
-      //for (auto it = m_collection.begin(); it != m_collection.end(); ++it)
-      //   os << *it;
-      //The above iterator is also a regular "for" loop. Hence, using "for_each" from algorithm.
-      for_each(m_collection.begin(), m_collection.end(), [&os](const BakedGood& src) {os << src; });
+      //Using "for_each" from algorithm instead of for+iterator.
+      for_each(m_collection.begin(), m_collection.end(), [&os](const BakedGood& src) {os << src << endl; });
+      //Using "accumulate".
+      cout << "Total Stock: " << accumulate(m_collection.begin(), m_collection.end(), 0, [](const int& result, const BakedGood& src) { return result + src.m_stock; }) << endl;
+      cout << "Total Price: " << accumulate(m_collection.begin(), m_collection.end(), 0.0, [](const double& result, const BakedGood& src) { return result + src.m_price; }) << endl;
+   }
+   void Bakery::sortBakery(const std::string& field)
+   {
+      if (field == "Description") {
+         sort(m_collection.begin(), m_collection.end(), [](const BakedGood& lhs, const BakedGood& rhs) {return lhs.m_desc < rhs.m_desc; });
+      }
+      else if (field == "Shelf") {
+         sort(m_collection.begin(), m_collection.end(), [](const BakedGood& lhs, const BakedGood& rhs) {return lhs.m_shelfLife < rhs.m_shelfLife; });
+      }
+      else if (field == "Stock") {
+         sort(m_collection.begin(), m_collection.end(), [](const BakedGood& lhs, const BakedGood& rhs) {return lhs.m_stock < rhs.m_stock; });
+      }
+      else if (field == "Price") {
+         sort(m_collection.begin(), m_collection.end(), [](const BakedGood& lhs, const BakedGood& rhs) {return lhs.m_price < rhs.m_price; });
+      };
+   }
+   std::vector<BakedGood> Bakery::combine(Bakery& rhs)
+   {
+      vector<BakedGood> combined;
+      rhs.sortBakery("Price");
+      this->sortBakery("Price");
+      merge(m_collection.begin(), m_collection.end(), rhs.m_collection.begin(), rhs.m_collection.end(), std::back_inserter(combined), [](const BakedGood& lhs, const BakedGood& rhs) {return lhs.m_price < rhs.m_price; });
+      return combined;
+   }
+   bool Bakery::inStock(const std::string& desc, const BakedType& type) const
+   {
+      return (any_of(m_collection.begin(), m_collection.end(), [&](const BakedGood& bg) {return bg.m_type == type && bg.m_desc == desc && bg.m_stock > 0; }));
+   }
+   std::list<BakedGood> Bakery::outOfStock(const BakedType& type) const
+   {
+      std::list<BakedGood> noStock;
+      copy_if(m_collection.begin(), m_collection.end(), std::back_inserter(noStock), [&](const BakedGood& bg) {return bg.m_type == type && bg.m_stock == 0; });
+      return noStock;
    }
    std::ostream& operator<<(std::ostream& os, const BakedGood& bg)
    {
@@ -70,7 +102,7 @@ namespace sdds {
       os << setw(20) << bg.m_desc << " * ";
       os << setw(5) << bg.m_shelfLife << " * ";
       os << setw(5) << bg.m_stock << " * ";
-      os << right << fixed << setprecision(2) << setw(8) << bg.m_price << " * " << endl;
+      os << right << fixed << setprecision(2) << setw(8) << bg.m_price << " * ";
       return os;
    }
    std::string& trim(std::string& s)

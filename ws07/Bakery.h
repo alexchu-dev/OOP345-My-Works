@@ -11,10 +11,11 @@
 #ifndef SDDS_BAKERY_H
 #define SDDS_BAKERY_H
 #include <vector>
+#include <list>
 #include <map>
 namespace sdds {
    enum class BakedType {
-      BREAD, PASTRY
+      BREAD, PASTERY
    };
    struct BakedGood {
       BakedType m_type = BakedType::BREAD;
@@ -27,8 +28,12 @@ namespace sdds {
    {
       std::vector<BakedGood> m_collection;
    public:
-      Bakery(const std::string filename);
+      Bakery(const std::string& filename);
       void showGoods(std::ostream& os) const;
+      void sortBakery(const std::string& field);
+      std::vector<BakedGood> combine(Bakery& rhs);
+      bool inStock(const std::string& desc, const BakedType& type) const;
+      std::list<BakedGood> outOfStock(const BakedType& type) const;
    };
    std::ostream& operator<<(std::ostream& os, const BakedGood& bg);
    std::string& trim(std::string& s);
