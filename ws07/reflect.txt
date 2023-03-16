@@ -25,20 +25,38 @@ There are not a lot of lines of code in this workshop, but the challenging part 
 Reflection questions:
 
 Q1. List all the STL functions that you have used in this workshop; explain your reasoning for choosing each one, and not another.
-"STL functions" I assume which is referring to Algorithms not including std::vector, std::list etc. Below includes the algorithms I decided to use and the reason.
-for_each - This is the first algo I started with because it was in Part 1. Instead of writing a classic manual for loop, I used a for_each in the showGoods function. It iterates the Bakery vector m_collection, then by passing references of the ostream and the struct of the m_collection, it outputs the details of the iteration with the extraction function. It saves time and have a much tidier syntax, which is also not prone to errors.
+Here are the algo I have used:
 
-accumulate - Also in the showGoods function, it goes through the iteration itself and sum up the required field for Total Stock and Total Price.
-sort - 
-merge - 
-any_of - 
-copy_if -
+for_each(m_collection.begin(), m_collection.end(), [&os](const BakedGood& src) {os << src << endl; });
+This is the first algo I started with because it was already in Part 1. Instead of writing a generic manual for loop, I used a for_each in the showGoods function. It iterates the Bakery vector m_collection, then by passing references of the ostream and the struct of the m_collection to a lambda function, outputs the details of the iteration with the extraction overload. It saves time, have a much cleaner and readable syntax, , and also less prone to errors. It also improves performance.
 
+accumulate - accumulate(m_collection.begin(), m_collection.end(), 0, [](const int& result, const BakedGood& src) { return result + src.m_stock; });
+Also within the showGoods function, it goes through the iteration and sum up the required field for Total Stock and Total Price by using a lambda function. Accumlate is designed to retrieve the sum of the array, with extended args to set initiate value of sum and a self defined myfun. Undoubtly this is much easier and faster than using a generic for loop.
 
+sort - if (field == "Price") {sort(m_collection.begin(), m_collection.end(), [](const BakedGood& lhs, const BakedGood& rhs) {return lhs.m_price < rhs.m_price; });
+Sorting is probably the most popular one in day to day usage. Rather than writing a bunch of codes for bubble sort etc., using this highly optimised algorithm which is already implemented would be the best choice in terms of performance and maintenance. Unless there is a strong reason I would need to write a manual sort for specific reason which cannot apply to this sort algorithm, there is no point in writing my own. Especially when we comes to data sorting we cannot prevent a massive data with hundreds or thousands if not millions of records, using the C++ optimised one would always be the preferred choice.
 
+merge - merge(m_collection.begin(), m_collection.end(), rhs.m_collection.begin(), rhs.m_collection.end(), std::back_inserter(combined), [](const BakedGood& lhs, const BakedGood& rhs) {return lhs.m_price < rhs.m_price; });
+Merging is pretty confusing in its syntax, and the examples in the notes and the lecture video were using two arrays instead of vectors. There was a lot of errors generated which did not identify itself, I needed to deactivate each functions and test one by one to find out the problem is from "merge". After applying sorting first and adding the std::back_inserter it seems to be fine. In general, writing a manual merge function would require a bit of time for us as beginners to figure out the whole algorithms. It becomes very straight forward and reasonable to use merge with sorting, rather than manually sorting them and then compare and manually merge. I don't see there is any point for me to write a manual merging function, unless there are some requirements cannot be fulfilled by this algorithm.
 
+any_of - return (any_of(m_collection.begin(), m_collection.end(), [&](const BakedGood& bg) {return bg.m_type == type && bg.m_desc == desc && bg.m_stock > 0; }));
+Very straight forward, return as a boolean if there is "any" record matching in the iteration. Readability is one issue, it is very easy for us to maintain the codes by looking at it, when the programmer/ maintainer know what is a any_of, all_of. Same as above, the performance is also an issue.
 
-
+copy_if - copy_if(m_collection.begin(), m_collection.end(), std::back_inserter(noStock), [&](const BakedGood& bg) {return bg.m_type == type && bg.m_stock == 0; });
+Using copy_if saves us from writing manual loops to iterate over the source range and check each element against the condition. Additionally, copy_if allows us to create a new container with the filtered elements, without having to resize and copy elements manually. On the other hand, it improves the performance and workability.
 
 Q2. Present the advantages of using STL algorithms vs. implementing the functionality by yourself using loops.
+Algorithm is a library which stores the most common functions we need to use, it works as a short hand by giving arguments and function/lambda to the algorithms. They provide efficient and concise solutions, in a more readable and maintainable manner. The syntax with most of the algorithms are very much identical, hence it would be easy to maintain. As a result, it saves a lot of time by writing manual loops and functions which are already here for use. In general, it has the below advantages:
+1. Efficiency - No doubt for the performance.
+2. Readability - Easy to read, hence to maintain
+3. Reusability - They are well tested for years and it can be used in different environments
+4. Consistency - The syntax are very much alike among/across the algorithm. It makes our lives easier.
+
 Q3. For the sortBakery function, would anything differ in how it is implemented if the choice of collection was either a vector or a list? If there is a difference what is it?
+In the workshop, we started the member variable with "vector", and we use "std::sort" algorithms with it. While std::sort requires random access iterator:
+CPPReference.com - "std::sort requires random access iterators and so cannot be used with list. This function also differs from std::sort in that it does not require the element type of the list to be swappable, preserves the values of all iterators, and performs a stable sort."
+Vector is optimised for fast random access while list isn't, list doees not have random access iterators. For list itself, it already has its own sorting member method which is list::sort.
+Vector style:
+sort(m_collection.begin(), m_collection.end(), [](const BakedGood& lhs, const BakedGood& rhs) {return lhs.m_desc < rhs.m_desc; });
+List style:
+m_collection.sort([](const BakedGood& lhs, const BakedGood& rhs) {return lhs.m_desc < rhs.m_desc;});
