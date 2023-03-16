@@ -36,7 +36,7 @@ namespace sdds {
          try {
             BakedGood bg;
             // Retrieve token, trim, assign enum
-            bg.m_type = trim(token = line.substr(0, 8)) == "Bread" ? BakedType::BREAD : bg.m_type = BakedType::PASTERY;
+            bg.m_type = (trim(token = line.substr(0, 8)) == "Bread" ? BakedType::BREAD : BakedType::PASTERY);
             bg.m_desc = trim(token = line.erase(0, 8).substr(0, 20));
             bg.m_shelfLife = stoi(line.erase(0, 20).substr(0, 14));
             bg.m_stock = stoi(line.erase(0, 14).substr(0, 8));
