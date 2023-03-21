@@ -99,6 +99,7 @@ namespace sdds {
                item->m_serialNumber = station.getNextSerialNumber();
                item->m_isFilled = true;
                os << "Filled " << m_name << ", " << m_product << "[" << item->m_itemName << "]" << endl;
+               return;
             }
             else {
                os << "Unable to fill " << m_name << ", " << m_product << "[" << item->m_itemName << "]" << endl;
@@ -112,7 +113,7 @@ namespace sdds {
       for (size_t i = 0; i < m_cntItem; i++)
       {
          os << "[" << setw(6) << setfill('0') << m_lstItem[i]->m_serialNumber << "] ";
-         os << setw(m_widthField) << left << setfill(' ') << m_lstItem[i]->m_itemName << "  - ";
+         os << setw(m_widthField) << left << setfill(' ') << m_lstItem[i]->m_itemName << " - ";
          os << (m_lstItem[i]->m_isFilled ? "FILLED" : "TO BE FILLED") << std::endl;
       }
    }
