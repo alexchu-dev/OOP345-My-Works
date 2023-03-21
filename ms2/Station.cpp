@@ -49,7 +49,7 @@ namespace sdds {
       os << setfill('0') << setw(3) << m_id << " | ";
       os << setfill(' ');
       os.setf(ios::left);
-      os << setw(m_widthField) << m_name << "  | ";
+      os << setw(m_widthField) << m_name << " | ";
       os.unsetf(ios::left);
       os << setfill('0') << setw(6) << m_serial << " | ";
       os << setfill(' ');
