@@ -63,7 +63,7 @@ namespace sdds {
       string bkp_filename = m_filename + ".bkp.txt";
       ofstream out_file(bkp_filename);
       for (size_t i = 0; i < m_entries; ++i) {
-         out_file << setw(25) << m_keys[i] << " -> " << m_values[i] << endl;
+         out_file << left << setw(25) << m_keys[i] << " -> " << m_values[i] << endl;
       }
       out_file.close();
    }
