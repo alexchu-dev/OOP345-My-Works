@@ -15,15 +15,20 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="data.txt" />
     <Text Include="sample_data.txt.bkp.txt" />
     <Text Include="sample_output.txt" />
+    <Text Include="data_num.txt" />
+    <Text Include="data_str.txt" />
+    <Text Include="sample_data_num.txt.bkp.txt" />
+    <Text Include="sample_data_str.txt.bkp.txt" />
+    <Text Include="data_num.txt.bkp.txt" />
+    <Text Include="data_str.txt.bkp.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="w8_p1.cpp">
+    <ClCompile Include="Database.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Database.cpp">
+    <ClCompile Include="w8_p2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

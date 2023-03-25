@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,13 +128,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="data.txt" />
+    <Text Include="data_num.txt" />
+    <Text Include="data_num.txt.bkp.txt" />
+    <Text Include="data_str.txt" />
+    <Text Include="data_str.txt.bkp.txt" />
     <Text Include="sample_data.txt.bkp.txt" />
+    <Text Include="sample_data_num.txt.bkp.txt" />
+    <Text Include="sample_data_str.txt.bkp.txt" />
     <Text Include="sample_output.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Database.cpp" />
-    <ClCompile Include="w8_p1.cpp" />
+    <ClCompile Include="w8_p2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Database.h" />
