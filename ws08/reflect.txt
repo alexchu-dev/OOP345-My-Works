@@ -1,1 +1,18 @@
-dummy
+/******************************************************************************
+//                    OOP345NDD - WS07 @ 16 Mar 2023
+//Full Name  : Alex Chu
+//Student ID#: 153954219
+//Email      : kchu30@myseneca.ca
+//
+//I have done all the coding by myself and only copied the code
+//that my professor provided to complete my workshops and assdignments.
+******************************************************************************/
+
+
+Error	C2280	'std::unique_ptr<sdds::Database<__int64>,std::default_delete<sdds::Database<__int64>>>::unique_ptr(const std::unique_ptr<sdds::Database<__int64>,std::default_delete<sdds::Database<__int64>>> &)': attempting to reference a deleted function	ws08	D:\GitHub\OOP345-My Works\ws08\Database.h	54	
+
+why could we not use a unique_ptr in your Database class?
+what changes you had to make in part 1 to transform the class into a templated one?
+a class that allows only one instance to be created is called a singleton. Can you think at another way to create a singleton without using static members? How would that object be managed?
+the class Database has a resource attribute (the database instance), yet no copy/move operations were implemented. Is that a bug (justify your answer)?
+we said that the class Database can be instantied only once, yet in the output we see that the custom constructor is called twice (same for the destructor). Explain.
