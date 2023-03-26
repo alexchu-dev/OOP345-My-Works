@@ -1,5 +1,5 @@
 /******************************************************************************
-//                    OOP345NDD - WS07 @ 16 Mar 2023
+//                    OOP345NDD - WS08 @ 25 Mar 2023
 //Full Name  : Alex Chu
 //Student ID#: 153954219
 //Email      : kchu30@myseneca.ca
@@ -7,12 +7,66 @@
 //I have done all the coding by myself and only copied the code
 //that my professor provided to complete my workshops and assdignments.
 ******************************************************************************/
+Raw Pointers & Smart Pointers
+------------------------------
+1) Why could we not use a unique_ptr in your Database class?
+The smart pointers is of great help when we can forget about the memory leak and the other exceptions. In this workshop, we were advised to use shared_ptr in the very beginning. After finishing the code, I have changed the "shared_ptr" to "unique_ptr", and immediately the code cannot be compiled and stucked at the getInstance() function. It says that I am attempting to reference a deleted function:
+'std::unique_ptr<sdds::Database<__int64>,std::default_delete<sdds::Database<__int64>>>::unique_ptr(const std::unique_ptr<sdds::Database<__int64>,std::default_delete<sdds::Database<__int64>>> &)': attempting to reference a deleted function.
+
+If we want to understand the reason behind, we can consider the main differences between unique_ptr and shared_ptr.
+- First of all, Ownership. The ownership of unique_ptr is an exclusive ownership of the managed object while shared_ptr is a shared one, which means that a unique_ptr cannot be copied or shared. When a unique_ptr goes out of scope, the object is automatically deleted. Hence, this is the reason it prompted an error saying I was attempting to ref a deleted fn.
+
+In contrast, shared_ptr satisfies the usage in this workshop, multiple shared_ptr objects can point to the same object and each shared_ptr can kepp track of the number of shared pointers to the object. (strong ref in the Auto/Local windows), When the last shared_ptr goes out of scope, the managed object is automatically deleted.
+
+In addition, unique_ptr cannot be copied but moved, so there is always only one pointer there. Shared pointer can be copied and it increases the "strong ref" count by itself, so that it keeps track on the flow and do the increment and decrement itself.
+
+2) What changes you had to make in part 1 to transform the class into a templated one?
+First, I have transfered all the functions on cpp file to the header file,  created a class template declartion in the h file, right in front of the class Database declaration. The "value" which were string type were all changed to T instead.
+template<typename T>
+class Database {
+...}
+The instantiation of the shared_ptr<Database> has been commented out. The declaration of the shared_ptr also added "inline". According to the requirement, 2 specialisations were also made.
+inline static std::shared_ptr<Database> m_instance;
+template<>
+inline void Database<std::string>::encryptDecrypt(std::string& value) {}
+template<>
+inline void Database<long long>::encryptDecrypt(long long& value) {}
+
+3) A class that allows only one instance to be created is called a singleton. Can you think at another way to create a singleton without using static members? How would that object be managed?
+According to the research on the internet, there are some alternatives of creating a singleton, some might refer to JAVA rather than C++, although they could be similar:
+- Construct the object once, in the static method main
+- Meyers Singleton : which involves defining a static function within a function and returning a reference to a static instance of the object created within the function. The object is constructed on the first call to the function and then reused for all subsequent calls.
+- Monostate Pattern
+
+However, after looking at the code there are still "static" keywords being used in the code which I am not sure if that would be the exact requirement.
+After further research, it comes up on StackOverflow and Softwareengineering.stackexchcnage where people mentioned about enum method - create an instance inside an enum class. It can be entirely without static and concurrency safe.
+Here is a sample code:
+public enum Singleton {
+    INSTANCE;
+    public final AtomicLong counter;
+    Singleton() {
+        counter = new AtomicLong(System.currentMillis());
+    }
+    /**
+     * For unit testing.
+     * @param value.
+     */
+    void setCounter(long value) {
+        counter.set(value);
+    }
+}
+
+The object would be managed similarly to the way a static member is manged, it would exist for the lifetime of the programme and would not be destroyed until the program terminates.
+
+4) The class Database has a resource attribute (the database instance), yet no copy/move operations were implemented. Is that a bug (justify your answer)?
+
+I think that is not a bug as the instruction requires us to create just "one instance", which means it is not even necessary to create another instance. The class itself is to be designed to allow only once instance to be created if we follow the README. If we implement copy and move operators, it would simply break the design and then it would be possible to create many instances of the class which it will not be a singleton anymore.
+
+According the below character of the shared_ptr (reference from advoop notes), the copy and move construction and assignment will break the singleton intention, so that it is not a bug but instead intentionall.
+[transfers ownership of the resource in move construction and move assignment
+copies itself in a copy construction
+releases itself from its object or resource and reattaches itself in a copy assign]
 
 
-Error	C2280	'std::unique_ptr<sdds::Database<__int64>,std::default_delete<sdds::Database<__int64>>>::unique_ptr(const std::unique_ptr<sdds::Database<__int64>,std::default_delete<sdds::Database<__int64>>> &)': attempting to reference a deleted function	ws08	D:\GitHub\OOP345-My Works\ws08\Database.h	54	
-
-why could we not use a unique_ptr in your Database class?
-what changes you had to make in part 1 to transform the class into a templated one?
-a class that allows only one instance to be created is called a singleton. Can you think at another way to create a singleton without using static members? How would that object be managed?
-the class Database has a resource attribute (the database instance), yet no copy/move operations were implemented. Is that a bug (justify your answer)?
-we said that the class Database can be instantied only once, yet in the output we see that the custom constructor is called twice (same for the destructor). Explain.
+5) We said that the class Database can be instantied only once, yet in the output we see that the custom constructor is called twice (same for the destructor). Explain.
+The custom constructor and destructor are called twice in the output because the Database instance is created as a global variable, which is constructed before the main function is executed and destroyed after the main function has completed. Therefore, the constructor is called when the program starts, and the destructor is called when the program exits.

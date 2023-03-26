@@ -17,6 +17,7 @@
 #include <iomanip>
 #include <algorithm>
 namespace sdds {
+   //This line has to comment out :
    //std::shared_ptr<Database> Database::m_instance = nullptr;
    enum class Err_Status
    {
