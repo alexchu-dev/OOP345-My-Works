@@ -42,10 +42,24 @@ namespace sdds_ws9 {
       //         into variables "total_items" and "data". Don't forget to allocate
       //         memory for "data".
       //       The file is binary and has the format described in the specs.
+      std::ifstream file(filename, std::ios::binary);
+      if (!file) {
+         std::cerr << "Failed to open file '" << filename << "'\n";
+         total_items = 0;
+         data = nullptr;
+         return;
+      }
 
+      file.read(reinterpret_cast<char*>(&total_items), sizeof(total_items));
+      if (total_items <= 0) {
+         std::cerr << "Invalid total_items value in file '" << filename << "'\n";
+         total_items = 0;
+         data = nullptr;
+         return;
+      }
 
-
-
+      data = new int[total_items];
+      file.read(reinterpret_cast<char*>(data), total_items * sizeof(int));
 
       std::cout << "Item's count in file '" << filename << "': " << total_items << std::endl;
       std::cout << "  [" << data[0] << ", " << data[1] << ", " << data[2] << ", ... , "
@@ -62,7 +76,30 @@ namespace sdds_ws9 {
 
 
    // TODO You create implementation of function operator(). See workshop instructions for details . 
+   int ProcessData::operator()(std::string target_filename, double& avg, double& var) {
+      // Compute average value
+      computeAvgFactor(data, total_items, total_items, avg);
 
+      // Compute variance value
+      computeVarFactor(data, total_items, total_items, avg, var);
+
+      // Open target data file for writing in binary mode
+      std::ofstream target_file(target_filename, std::ios::binary);
+
+      if (target_file.is_open()) {
+         // Write total_items to target file
+         target_file.write(reinterpret_cast<const char*>(&total_items), sizeof(total_items));
+
+         // Write data array to target file
+         target_file.write(reinterpret_cast<const char*>(data), total_items * sizeof(int));
+
+         target_file.close();
+      }
+      else {
+         std::cerr << "Error opening target file for writing.\n";
+      }
+      return 0;
+   }
 
 
 

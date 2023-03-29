@@ -11,19 +11,62 @@
 #include <iostream>
 #include <algorithm>
 #include "Workstation.h"
-
-void sdds::Workstation::fill(std::ostream& os)
-{
-   if (!m_orders.empty()) m_orders.front().fillItem(*this, os);
-}
-
-bool sdds::Workstation::attemptToMoveOrder()
-{
-   bool ret = false;
-   // If order is not empty, check if it is filled or not.
-   if (!m_orders.empty()) {
-      if (m_orders.front().isItemFilled(getItemName())) {
-         //
-      }
-      return false;
+using namespace std;
+namespace sdds {
+   void Workstation::fill(std::ostream& os)
+   {
+      if (!m_orders.empty()) m_orders.front().fillItem(*this, os);
    }
+
+   bool Workstation::attemptToMoveOrder()
+   {
+      bool moved = false;
+      // If order is not empty, check if it is filled or not. If it is empty, "move" will stay "false" as default.
+      if (!m_orders.empty()) {
+         CustomerOrder& order = m_orders.front();
+         if (order.isItemFilled(getItemName())) {
+            if (!m_pNextStation) {
+               g_completed.push_back(std::move(order));
+            }
+            else {
+               *m_pNextStation += std::move(order);
+               m_orders.pop_front();
+            }
+         }
+         else {
+            if (!m_pNextStation) {
+               g_incomplete.push_back(std::move(order));
+            }
+            else {
+               *m_pNextStation += std::move(order);
+               m_orders.pop_front();
+            }
+         }
+         moved = true;
+      }
+      return moved;
+   }
+
+   void Workstation::setNextStation(Workstation* station = nullptr)
+   {
+      m_pNextStation = station;
+   }
+
+   Workstation* Workstation::getNextStation() const
+   {
+      return m_pNextStation;
+   }
+
+   void Workstation::display(std::ostream& os) const
+   {
+      os << getItemName() << " --> ";
+      os << m_pNextStation ? m_pNextStation->getItemName() : "End of Line";
+      os << endl;
+   }
+
+   Workstation& Workstation::operator+=(CustomerOrder&& newOrder)
+   {
+      m_orders.push_back(std::move(newOrder));
+      return *this;
+   }
+}

@@ -29,6 +29,10 @@ namespace sdds
       Workstation& operator=(Workstation&& src) = delete;
       void fill(std::ostream& os);
       bool attemptToMoveOrder();
+      void setNextStation(Workstation* station);
+      Workstation* getNextStation() const;
+      void display(std::ostream& os) const;
+      Workstation& operator+=(CustomerOrder&& newOrder);
    };
 }
 #endif
