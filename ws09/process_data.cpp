@@ -1,3 +1,13 @@
+/******************************************************************************
+//                    OOP345NDD - WS09 @ 30 Mar 2023
+//Module:      ProcessData CPP
+//Full Name  : Alex Chu
+//Student ID#: 153954219
+//Email      : kchu30@myseneca.ca
+//
+//I have done all the coding by myself and only copied the code
+//that my professor provided to complete my workshops and assdignments.
+******************************************************************************/
 // Workshop 9 - Multi-Threading, Thread Class
 // process_data.cpp
 // 2021/1/5 - Jeevan Pant
@@ -78,6 +88,7 @@ namespace sdds_ws9 {
       auto f1 = std::bind(computeAvgFactor, _1, _2, total_items, _3);
       for (auto i = 0; i < num_threads; ++i) {
          t.push_back(std::thread(f1, &data[p_indices[i]], chunk, std::ref(averages[i])));
+         //std::this_thread::sleep_for(std::chrono::nanoseconds(1000));
       }
       for (auto& x : t) {
          x.join();
@@ -89,6 +100,7 @@ namespace sdds_ws9 {
       auto f2 = std::bind(computeVarFactor, _1, _2, total_items, avg, _3);
       for (auto i = 0; i < num_threads; ++i) {
          t2.push_back(std::thread(f2, &data[p_indices[i]], chunk, std::ref(variances[i])));
+         //std::this_thread::sleep_for(std::chrono::nanoseconds(1000));
       }
       for (auto& x : t2) {
          x.join();

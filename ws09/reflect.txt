@@ -1,1 +1,57 @@
-dummy
+/******************************************************************************
+//                    OOP345NDD - WS09 @ 1 Apr 2023
+//Full Name  : Alex Chu
+//Student ID#: 153954219
+//Email      : kchu30@myseneca.ca
+//
+//I have done all the coding by myself and only copied the code
+//that my professor provided to complete my workshops and assdignments.
+******************************************************************************/
+Multi-Threading Reflection
+
+Q1. Was there any benefit from using binary files in this workshop?
+Binary is natural to computers as of IO, and Binary Access has a huge benefits in terms of performance and speed, also file size. It transfers data in and out the memory without any formatting, hence there is no need to convert the files from and to different formats. As Binary files can store data in a compact and machine readable format, they can be read and written so much faster than normal text files. It is like you read and write your notes with your first language would be faster than using your second or third language because your brain would automatically process a translation even sometimes you do not notice and that costs time and energy. This is just the same as file processing with a computer.
+
+Q2. Why would be important to bind a function to its arguments, and how was it useful in this workshop?
+Codes:
+auto f1 = std::bind(computeAvgFactor, _1, _2, total_items, _3);
+...t.push_back(std::thread(f1, &data[p_indices[i]], chunk, std::ref(averages[i])));
+auto f2 = std::bind(computeVarFactor, _1, _2, total_items, avg, _3);
+...t2.push_back(std::thread(f2, &data[p_indices[i]], chunk, std::ref(variances[i])));
+ 
+To be honest binding in this workshop is not useful and it is really redundant, for writing two more functions to store the binded version and calling them only twice passing with less arguments which does not actually boost the performance nor offer the convenience. It might be very useful if this is a big project with this function being called for thousands of times and assigning a default value would be time saving and prone to less errors because receiving one less argument, however I don't think it is of any use in this workshop.
+
+Q3. The advantages of using multiple threads, and how did you accomplished multi-threading in this workshop
+In this chapter, we finally learn about the multiprocessing and have a chance to work with multi-threading with C++.
+As numbers of CPU cores and threads are increasing year by year, it would be great to make use of the cores for better performance.
+The biggest advantage as said, Multi-threading make use of the multi cores to apply multi processing/ calculations at the same time. For example, after a party you found your dish washer broke and you have to clean up the dishes, it needs 1 hour to finish it but your friends offer help so all of you washes dishes in sync and it was just <30 minutes after all, given that you have 2+ washing basin. Same thing to the multithreading here. However, sometimes multithreading doesnt make a lot of difference, just like if you have only 3 dishes and takes you 3 minutes, it doesn't save a lot of time when your friends come to help, probably it already took them 1-2 minutes to wear gloves, do some warm up stretching before they wash the dishes. Therefore, we always hear people said a CPU with more cores and less CPU speed does not really make a big difference, especially if they run a system at x32 would make no sense. Even the OS is at x64 but the applications are at x32 also makes no sense. Therefore, after we have learnt about mutlithreading, and if we in the future write our applications using multithreading would benefit the users in some way especailly when the task is huge, long and probably redundant.
+
+In part 2 of this workshop, there is a new variable of num_threads to split tasks in mutli threads. I also split the data to different chunks of (total_item / num_threads). It has two thread vectors t & t2 for Avg and Var. Here uses the codes of the Avg computing part. The task uses std::thread to fairly seperate into different chunks, then it pushes back to the thread vector t. Then, the t is being joint one by one from the threads. At last, I get the avg from the average factors.
+
+std::vector<std::thread> t, t2;
+int chunk = total_items / num_threads;
+
+for (auto i = 0; i < num_threads; ++i) {
+ t.push_back(std::thread(f1, &data[p_indices[i]], chunk, std::ref(averages[i])));
+ std::this_thread::sleep_for(std::chrono::nanoseconds(1));
+}
+for (auto& x : t) {
+ x.join();
+}
+for (auto i = 0; i < num_threads; ++i) {
+ avg += averages[i];
+}
+
+
+Q4. (Experiments) Discussion on your observation of the computation times with three different values of the below parameters
+std::this_thread::sleep_for(std::chrono::nanoseconds(1)); // or
+std::this_thread::sleep_for(std::chrono::nanoseconds(10)); // or
+std::this_thread::sleep_for(std::chrono::nanoseconds(50));
+
+In this part, we are asking the thread to "sleep" which is to block the execution of the current thread for the specific duration of time.
+For 1 nanoseconds, there is no different at all, actually even 50 makes no difference on my computer. I had to adjust to at least 1000+ nanoseconds to see a slightly obvious difference. Because from the output, the time consumed from 1 thread should be more then 2 and 4 threads, however it is not significant unless the process is long/ data is huge/ CPU is slow. In none of these prerequisite, the processes are lightning fast, and only if we increase the sleep time it would show the delay.
+
+Without adding sleep time, the processes were 9, 7, 7 milliseonds previously with 1, 2 and 4 threads respectively.
+After adding sleep time of 500 nanoseconds, the processes became 10, 7 , 19.
+
+With adding sleep time, it eliminate the advantages of multi threading.
