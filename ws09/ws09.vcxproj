@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="data_int.dat" />
+    <None Include="data_int_target.dat" />
     <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup>

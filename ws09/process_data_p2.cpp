@@ -12,6 +12,7 @@
 // process_data.cpp
 // 2021/1/5 - Jeevan Pant
 
+#include <thread>
 #include "process_data.h"
 
 namespace sdds_ws9 {
@@ -58,11 +59,12 @@ namespace sdds_ws9 {
          data = new int[total_items];
          file.read((char*)data, sizeof(int) * total_items);
          file.close();
-         std::cout << "Item's count in file '" << filename << "': " << total_items << std::endl;
-         std::cout << "  [" << data[0] << ", " << data[1] << ", " << data[2] << ", ... , "
-            << data[total_items - 3] << ", " << data[total_items - 2] << ", "
-            << data[total_items - 1] << "]\n";
       }
+
+      std::cout << "Item's count in file '" << filename << "': " << total_items << std::endl;
+      std::cout << "  [" << data[0] << ", " << data[1] << ", " << data[2] << ", ... , "
+         << data[total_items - 3] << ", " << data[total_items - 2] << ", "
+         << data[total_items - 1] << "]\n";
    }
 
    ProcessData::~ProcessData() {
@@ -75,8 +77,8 @@ namespace sdds_ws9 {
 
    // TODO You create implementation of function operator(). See workshop instructions for details . 
    int ProcessData::operator()(std::string target_filename, double& avg, double& var) {
-      computeAvgFactor(data, total_items, total_items, avg);
-      computeVarFactor(data, total_items, total_items, avg, var);
+      computeAvgFactor(data, chunk, total_items, avg);
+      computeVarFactor(data, chunk, total_items, avg, var);
       std::ofstream target_file(target_filename, std::ios::binary);
       if (target_file.is_open()) {
          target_file.write((const char*)&total_items, sizeof(int));
