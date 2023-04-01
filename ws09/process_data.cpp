@@ -42,22 +42,9 @@ namespace sdds_ws9 {
       //         into variables "total_items" and "data". Don't forget to allocate
       //         memory for "data".
       //       The file is binary and has the format described in the specs.
+
       std::ifstream file(filename, std::ios::binary);
-      if (!file) {
-         std::cerr << "Failed to open file '" << filename << "'\n";
-         total_items = 0;
-         data = nullptr;
-         return;
-      }
-
-      file.read(reinterpret_cast<char*>(&total_items), sizeof(total_items));
-      if (total_items <= 0) {
-         std::cerr << "Invalid total_items value in file '" << filename << "'\n";
-         total_items = 0;
-         data = nullptr;
-         return;
-      }
-
+      file.read(reinterpret_cast<char*>(&total_items), sizeof total_items);
       data = new int[total_items];
       file.read(reinterpret_cast<char*>(data), total_items * sizeof(int));
 
