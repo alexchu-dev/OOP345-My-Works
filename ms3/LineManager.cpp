@@ -57,9 +57,9 @@ namespace sdds {
       else {
          throw string("ERROR: No end station found.");
       }
-
       m_cntCustomerOrder = g_pending.size();
    }
+
    void LineManager::reorderStations() {
       vector<Workstation*> sort_activeLine;
       Workstation* currentWorkstation;
@@ -79,9 +79,10 @@ namespace sdds {
          *m_firstStation += std::move(g_pending.front());
          g_pending.pop_front();
       }
-
       for (auto& workstation : m_activeLine) {
          workstation->fill(os);
+      }
+      for (auto& workstation : m_activeLine) {
          workstation->attemptToMoveOrder();
       }
       return (g_completed.size() + g_incomplete.size()) == m_cntCustomerOrder;
