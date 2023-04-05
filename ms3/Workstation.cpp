@@ -21,6 +21,7 @@ namespace sdds {
    bool Workstation::attemptToMoveOrder()
    {
       bool moved = false;
+      // If order is not empty, check if it is filled or not. If it is empty, "move" will stay "false" as default.
       if (!m_orders.empty()) {
          if (m_orders.front().isItemFilled(getItemName()) || this->getQuantity() <= 0) {
             if (m_pNextStation) {
@@ -38,33 +39,6 @@ namespace sdds {
          }
       }
       return moved;
-
-      //bool moved = false;
-      //// If order is not empty, check if it is filled or not. If it is empty, "move" will stay "false" as default.
-      //if (!m_orders.empty()) {
-      //   if (m_orders.front().isItemFilled(getItemName()) || this->getQuantity() <= 0) {
-      //      if (!m_pNextStation) {
-      //         g_completed.push_back(std::move(m_orders.front()));
-      //         m_orders.pop_front();
-      //      }
-      //      else {
-      //         *m_pNextStation += std::move(m_orders.front());
-      //         m_orders.pop_front();
-      //      }
-      //   }
-      //   else {
-      //      if (!m_pNextStation) {
-      //         g_incomplete.push_back(std::move(m_orders.front()));
-      //         m_orders.pop_front();
-      //      }
-      //      else {
-      //         *m_pNextStation += std::move(m_orders.front());
-      //         m_orders.pop_front();
-      //      }
-      //   }
-      //   moved = true;
-      //}
-      //return moved;
    }
 
    void Workstation::setNextStation(Workstation* station = nullptr)

@@ -58,7 +58,6 @@ namespace sdds {
          throw string("ERROR: No end station found.");
       }
 
-      // update count of customer orders
       m_cntCustomerOrder = g_pending.size();
    }
    void LineManager::reorderStations() {
@@ -81,19 +80,16 @@ namespace sdds {
          g_pending.pop_front();
       }
 
-      // perform fill and move operations for all stations
       for (auto& workstation : m_activeLine) {
          workstation->fill(os);
-      }
-      for (auto& workstation : m_activeLine) {
          workstation->attemptToMoveOrder();
       }
       return (g_completed.size() + g_incomplete.size()) == m_cntCustomerOrder;
    }
 
    void LineManager::display(std::ostream& os) const {
-      for (auto& ws : m_activeLine) {
-         ws->display(os);
+      for (auto& workstation : m_activeLine) {
+         workstation->display(os);
       }
    }
 }
