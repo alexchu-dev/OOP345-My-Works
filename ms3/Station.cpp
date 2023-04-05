@@ -49,7 +49,7 @@ namespace sdds {
       os << setfill('0') << right << setw(3) << m_id << " | ";
       os << setfill(' ');
       os << setw(m_widthField) << left << m_name << " | ";
-      os << setfill('0') << setw(6) << m_serial << " | ";
+      os << setfill('0') << right << setw(6) << m_serial << " | ";
       os << setfill(' ');
       if (full) {
          os << setw(4) << right << m_numInStock << " | ";
