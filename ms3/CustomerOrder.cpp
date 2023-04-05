@@ -42,12 +42,12 @@ namespace sdds {
          }
       }
       else {
-         throw ("Errors in read-in data, possibly no item in the list.");
+         throw string("ERROR: in read-in data, possibly no item in the list.");
       }
    }
    CustomerOrder::CustomerOrder(const CustomerOrder& src)
    {
-      throw ("Object does not allow copy operations!");
+      throw string("ERROR: Object does not allow copy operations!");
    }
    CustomerOrder::CustomerOrder(CustomerOrder&& src) noexcept
    {

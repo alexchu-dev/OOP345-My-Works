@@ -140,8 +140,6 @@
   <ItemGroup>
     <ClCompile Include="CustomerOrder.cpp" />
     <ClCompile Include="LineManager.cpp" />
-    <ClCompile Include="ms1.cpp" />
-    <ClCompile Include="ms2.cpp" />
     <ClCompile Include="ms3.cpp" />
     <ClCompile Include="Station.cpp" />
     <ClCompile Include="Utilities.cpp" />

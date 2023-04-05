@@ -15,14 +15,14 @@
 #include <deque>
 namespace sdds
 {
-   extern std::deque<CustomerOrder> g_pending, g_completed, g_incomplete{};
+   extern std::deque<CustomerOrder> g_pending, g_completed, g_incomplete;
    class Workstation : public Station
    {
       std::deque<CustomerOrder> m_orders{};
       Workstation* m_pNextStation{};
    public:
       Workstation(const std::string& str) :Station(str) {};
-      ~Workstation();
+      ~Workstation() {};
       Workstation(const Workstation& src) = delete;
       Workstation& operator=(const Workstation& src) = delete;
       Workstation(Workstation&& src) = delete;

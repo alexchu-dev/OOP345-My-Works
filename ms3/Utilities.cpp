@@ -21,24 +21,25 @@ namespace sdds {
    }
    string Utilities::extractToken(const string& str, size_t& next_pos, bool& more)
    {
-      string token;
-      size_t found = str.find(m_delimiter, next_pos);
-      token = str.substr(next_pos, found - next_pos);
-      m_widthField = (m_widthField < token.length()) ? token.length() : m_widthField;
-      trim(token);
-      if (found == next_pos) {
-         more = false;
-         string e = "Error: A delimiter is found at " + next_pos;
-         throw (e);
+      string token{};
+      if (more) {
+         size_t found = str.find(m_delimiter, next_pos);
+         token = str.substr(next_pos, found - next_pos);
+         m_widthField = (m_widthField < token.length()) ? token.length() : m_widthField;
+         trim(token);
+         if (found == next_pos) {
+            more = false;
+            string e = "ERROR: A delimiter is found at " + next_pos;
+            throw (e);
+         }
+         else if (found != string::npos) {
+            next_pos = found + 1;
+            more = true;
+         }
+         else {
+            more = false;
+         }
       }
-      else if (found != string::npos) {
-         next_pos = found + 1;
-         more = true;
-      }
-      else {
-         more = false;
-      }
-
       //The below string var declaration is on purpose, seems Visual Studio has a bug when it goes to line 24 string token, it jumps to line 42 return line and back to line 25 and the token shown "Error reading characters of string" in the Auto console. Therefore, this redundant string assignment is solely for clearing the bug.
       string line = token;
       return line;
