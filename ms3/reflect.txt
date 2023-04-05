@@ -1,1 +1,50 @@
-dummy
+/******************************************************************************
+//                    OOP345NDD - MS3 @ 4 Apr 2023
+//Full Name  : Alex Chu
+//Student ID#: 153954219
+//Email      : kchu30@myseneca.ca
+//
+//I have done all the coding by myself and only copied the code
+//that my professor provided to complete my workshops and assdignments.
+******************************************************************************/
+     ,---.
+   ,.'-.   \						                                                                         ,----,. 
+  ( ( ,'"""""-.						    ,----..       ,----..   ,-.----.     .--,-``-.            ,--,     ,'   ,' | 
+  `,X          `.					   /   /   \     /   /   \  \    /  \   /   /     '.        ,--.'|   ,'   .'   | 
+  /` `           `._				  /   .     :   /   .     : |   :    \ / ../        ;    ,--,  | : ,----.'    .' 
+ (            ,   ,_\				 .   /   ;.  \ .   /   ;.  \|   |  .\ :\ ``\  .`-    ',---.'|  : ' |    |   .'   
+ |          ,---.,'o `.				.   ;   /  ` ;.   ;   /  ` ;.   :  |: | \___\/   \   :;   : |  | ; :    :  |--,  
+ |         / o   \     )			;   |  ; \ ; |;   |  ; \ ; ||   |   \ :      \   :   ||   | : _' | :    |  ;.' \ 
+  \ ,.    (      .____,				|   :  | ; | '|   :  | ; | '|   : .   /      /  /   / :   : |.'  | |    |      |
+   \| \    \____,'     \			.   |  ' ' ' :.   |  ' ' ' :;   | |`-'       \  \   \ |   ' '  ; : `----'.'\   ; 
+ '`'\  \        _,____,'			'   ;  \; /  |'   ;  \; /  ||   | ;      ___ /   :   |\   \  .'. |   __  \  .  | 
+ \  ,--      ,-'     \				 \   \  ',  /  \   \  ',  / :   ' |     /   /\   /   : `---`:  | ' /   /\/  /  : 
+   ( C     ,'         \				  ;   :    /    ;   :    /  :   : :    / ,,/  ',-    .      '  ; |/ ,,/  ',-   . 
+    `--'  .'           |			   \   \ .'      \   \ .'   |   | :    \ ''\        ;       |  : ;\ ''\       ;  
+      |   |         .O |			    `---`         `---`     `---'.|     \   \     .'        '  ,/  \   \    .'   
+    __|    \        ,-'_			                              `---`      `--`-,,-'          '--'    `--`-,-'     
+   / `L     `._  _,'  ' `.
+  /    `--.._  `',.   _\  `
+  `-.       /\  | `. ( ,\  \
+ _/  `-._  /  \ |--'  (     \
+'  `-.   `'    \/\`.   `.    )
+      \         \ `.  |    |
+The OOP345 projects serves as a overall revision to test our knowledge on the topics covered in the course.
+It does not cover all of them but the rest were covered in every workshops already.
+In terms of difficulty, this project is more difficult compare to OOP244, of course it is meant to be more advanced.
+The project itself gather every small piece of puzzle as a whole to get the big picture.
+Started from easier milestone 1 and 2, to build up the core utilities and functions to support the ms3.
+I have practised polymorphism, rule of 5, algorithms, vectors etc in here. The algorithms and vectors could be the most difficult part because I am not used to them yet. There are a few parts very confusing such as attemptToMoveOrder() and run(), needs a lot of logic to complete.
+--------------------------------------------------------------
+D'oh! C++ really hurts my eyes and my brain.
+Finally, we are getting closer to the end of the OOP course and farewell to C++.
+It was definitely one of the most intensive and toughest journey in my entire life, although it was kind of interesting.
+I recall how badly I wanted to get into Computer Science when I got into Computing Maths especially when my friend in CS being sarcastic that OO is difficult and not for everyone.
+
+I started my computer experience in some 8086/8286 computer with floopy drive, black and white screen with DOS, when windows are those mounted on our walls.
+I like computers but I don't like Logo, Basic, Pascal all those. I felt stupid. But then, now I regret I could have done better in my computing course in highschool so I wouldn't be here.
+
+So, this OOP244 - OOP345 course is super intense as it is meant to be as a college course. It would be much better if everything can extend a little bit like starting from Sem 1 to Sem 4.
+However, the compact style of this course does its job to prepare us in the industry, if the students paid attentions and efforts.
+It does equip me well with OO concepts and I can do it more natural with other languages like Javascript and PHP now.
+To summarise, it was a pleasure journey to have Fardad and Hong to be my professors in the OOP courses and I learnt a lot. Thank you!
